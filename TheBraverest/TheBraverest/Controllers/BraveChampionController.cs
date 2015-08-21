@@ -51,12 +51,21 @@ namespace TheBraverest.Controllers
             List<int> itemList = new List<int>();
             if (items.Success)
             {
-                List<ItemDto> selectableItems = items.ReturnObject.Data.Values.Where(i => i.Depth >= 3).ToList();
+                List<ItemDto> selectableItems = items.ReturnObject.Data.Values.Where(i => i.Depth >= 3 && (i.Group == null || !i.Group.StartsWith("Boots"))).ToList();
+                List<ItemDto> bootOptions = items.ReturnObject.Data.Values.Where(i => i.Depth >= 3 && i.Group != null && i.Group.StartsWith("Boots")).ToList();
 
-                for (int i = 0; i < 6; i++)
+                itemList.Add(bootOptions[random.Next(0, bootOptions.Count - 1)].Id);
+
+                int selectedItemId = 0;
+
+                for (int i = 0; i < 5; i++)
                 {
-                    //TODO: Make it so it never selects the same item twice.  Also make it so always 1 max level boot and 5 depth 3 or greater non-boot items
-                    itemList.Add(selectableItems[random.Next(0, selectableItems.Count - 1)].Id);
+                    do
+                    {
+                        selectedItemId = random.Next(0, selectableItems.Count - 1);
+                    } while (itemList.Contains(selectedItemId));
+
+                    itemList.Add(selectableItems[selectedItemId].Id);
                 }
 
                 itemSuccess = true;
