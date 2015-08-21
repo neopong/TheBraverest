@@ -1,0 +1,1 @@
+﻿var Test = React.createClass({ });
