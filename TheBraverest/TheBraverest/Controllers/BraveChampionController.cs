@@ -27,15 +27,20 @@ namespace TheBraverest.Controllers
             bool champSuccess = false;
             bool itemSuccess = false;
 
-            RESTResult<List<ChampionDto>> champs = await
-                RESTHelpers.RESTRequest<List<ChampionDto>>(
+            RESTResult<ChampionListDto> champs = await
+                RESTHelpers.RESTRequest<ChampionListDto>(
                     "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion", "", apiKey, "champData=spells");
 
             Random random = new Random(braveChampion.Seed);
 
             if (champs.Success)
             {
-                braveChampion.Champion = champs.ReturnObject[random.Next(0, champs.ReturnObject.Count)];
+                ChampionDto selectedChamp =
+                    champs.ReturnObject.Data.Values[random.Next(0, champs.ReturnObject.Data.Values.Count - 1)];
+
+                braveChampion.ChampionId = selectedChamp.Id;
+                braveChampion.ChampionName = selectedChamp.Name;
+
                 champSuccess = true;
             }
 
@@ -43,19 +48,20 @@ namespace TheBraverest.Controllers
                 RESTHelpers.RESTRequest<ItemListDto>("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item", "",
                     apiKey, "itemListData=all");
 
+            List<int> itemList = new List<int>();
             if (items.Success)
             {
                 List<ItemDto> selectableItems = items.ReturnObject.Data.Values.Where(i => i.Depth >= 3).ToList();
 
-                braveChampion.Items = new List<ItemDto>();
-
                 for (int i = 0; i < 6; i++)
                 {
                     //TODO: Make it so it never selects the same item twice.  Also make it so always 1 max level boot and 5 depth 3 or greater non-boot items
-                    braveChampion.Items.Add(selectableItems[random.Next(0, selectableItems.Count)]);
+                    itemList.Add(selectableItems[random.Next(0, selectableItems.Count - 1)].Id);
                 }
 
                 itemSuccess = true;
+
+                braveChampion.Items = itemList.ToArray();
             }
 
             braveChampion.Success = champSuccess && itemSuccess;

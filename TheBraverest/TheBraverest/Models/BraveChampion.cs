@@ -10,8 +10,9 @@ namespace TheBraverest.Models
     public class BraveChampion
     {
         public int Seed { get; set; }
-        public List<ItemDto> Items { get; set; }
-        public ChampionDto Champion { get; set; }
+        public int[] Items { get; set; }
+        public int ChampionId { get; set; }
+        public string ChampionName { get; set; }
         public bool Success { get; set; }
     }
 }
