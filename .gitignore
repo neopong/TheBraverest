@@ -196,4 +196,5 @@ FakesAssemblies/
 *.opt
 
 Scripts/js/
+js/
 
