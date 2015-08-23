@@ -403,12 +403,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Scripts\jsx\index\index.jsx" />
-    <Content Include="Scripts\jsx\index\indexBody.jsx" />
-    <Content Include="Scripts\jsx\footer.jsx" />
-    <None Include="Scripts\jsx\layout.jsx" />
-    <Content Include="Scripts\react\react.min.js" />
-    <Content Include="Scripts\jsx\navigation.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
