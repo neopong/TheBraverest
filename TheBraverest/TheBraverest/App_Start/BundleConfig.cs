@@ -24,8 +24,8 @@ namespace TheBraverest
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/react").Include(
-                    "~/Scripts/react/react.min.js",
-                    "~/Scripts/js/layout.js"
+                    "~/Scripts/react/react.min.js"
+                    
                     ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

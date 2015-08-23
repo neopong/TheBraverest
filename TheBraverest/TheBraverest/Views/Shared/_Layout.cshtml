@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Are you the Braverest&trade;?!</title>
     <meta name="Description" content="@ViewBag.Description">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,900' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/css")
     @RenderSection("styles", required: false)
 </head>
@@ -12,6 +13,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/react")
+    <script src="~/Scripts/js/footer.js"></script>
+    <script src="~/Scripts/js/navigation.js"></script>
+    <script src="~/Scripts/js/layout.js"></script>
     @RenderSection("scripts", required: true)
     @RenderBody()
 </body>
