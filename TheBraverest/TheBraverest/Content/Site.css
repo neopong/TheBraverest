@@ -1,4 +1,25 @@
-﻿body {
+﻿*{
+    font-family: 'Lato', Arial;
+}
+#body-wrapper{
+    background-image: url("../Images/bg.jpg");
+    background-size:   cover;                     
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color:#333;
+    min-height:450px;
+}
+.footer{
+    min-height: 50px;
+    background-color: #333;
+}
+
+.body-bg{
+    background-color:#FAFAFA;
+    opacity: .85;
+    min-height:450px;
+}
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -16,9 +37,4 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
+

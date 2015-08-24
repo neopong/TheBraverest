@@ -2,25 +2,123 @@
     ViewBag.Title = "Halp, I need a build!";
 }
 
+<section id="main-slider" class="carousel">
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-content">
+                    <h1>Become the Braverest Today!</h1>
+                    <p class="lead">Show your opponents they are no match for you. Take no prisoners!</p>
+                </div>
+            </div>
+        </div><!--/.item-->
+        <div class="item">
+            <div class="container">
+                <div class="carousel-content">
+                    <h1>Who Needs a Proper Build?</h1>
+                    <p class="lead">I'm So Meta Even This Acronym.</p>
+                </div>
+            </div>
+        </div><!--/.item-->
+    </div><!--/.carousel-inner-->
+    <a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
+    <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>
+</section><!--/#main-slider-->
+<section id="services">
+    <div class="container">
+        <div class="box first">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>How to use the Braverest Build System:</h3>
+                    <p class="lead">To use the Braverest Build System, click on the <strong>Create My Build</strong> button.</p>
+                    <p class="lead">
+                        Our <strong>Brave Build Generation System<sup>TM</sup></strong> will generate a build guide for you to use in game.
+                        Place the build in your {League of Legends directory}, and during the game, you will be prompted on the reccomended
+                        items page to buy your <i>speshul</i> build items.
+                    </p>
+                    <p class="lead">
+                        Make sure to type <b>"I AM THE BRAVEREST"</b> in /all chat so everyone knows how lucky they are
+                        to be playing with someone like you!
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h3>Get your Braverest Build Now!</h3>
+                    <p>Click the button below to get started</p>
+                    <button class="btn btn-primary">Create My Build</button>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                </div>
+            </div><!--/.row-->
+        <div class="row">
+            <div class="col-md-12">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </div>
+        </div>
+        </div><!--/.box-->
+    </div><!--/.container-->
+</section><!--/#services-->
+
+
+<section id="contact">
+    <div class="container">
+        <div class="box last">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1>Contact Form</h1>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <div class="status alert alert-success" style="display: none"></div>
+                    <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php" role="form">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" required="required" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" required="required" placeholder="Email address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Message"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-danger btn-lg">Send Message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div><!--/.col-sm-6-->
+                <div class="col-sm-6">
+                    <h1>Our Partners</h1>
+                    <ul class="list-unstyled">
+                        <li><a href="http://killteemo.com">Kill Teemo</a></li>
+                    </ul>
+                </div><!--/.col-sm-6-->
+            </div><!--/.row-->
+        </div><!--/.box-->
+    </div><!--/.container-->
+</section><!--/#contact-->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" >
+    <div class="modal-dialog" style="z-index:999;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
 </div>
