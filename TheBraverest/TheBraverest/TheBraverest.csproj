@@ -245,11 +245,16 @@
     <Compile Include="Models\API\SpellVarsDto.cs" />
     <Compile Include="Models\API\StatsDto.cs" />
     <Compile Include="Models\API\SummonerDto.cs" />
+    <Compile Include="Models\API\SummonerSpellDto.cs" />
+    <Compile Include="Models\API\SummonerSpellListDto.cs" />
     <Compile Include="Models\API\Team.cs" />
     <Compile Include="Models\API\Timeline.cs" />
     <Compile Include="Models\BraveChampion.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MasterySummary.cs" />
+    <Compile Include="Models\SelectedItem.cs" />
+    <Compile Include="Models\SelectedSummonerSpell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -335,8 +340,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\jsx\" />
-    <Folder Include="Scripts\react\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

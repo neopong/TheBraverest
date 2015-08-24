@@ -13,8 +13,8 @@ namespace TheBraverest
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{version}/{seed}",
+                defaults: new { version = RouteParameter.Optional, seed = RouteParameter.Optional }
             );
         }
     }
