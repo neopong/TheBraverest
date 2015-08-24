@@ -303,6 +303,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\TheBraverest.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Images\ico\apple-touch-icon-114-precomposed.png" />
