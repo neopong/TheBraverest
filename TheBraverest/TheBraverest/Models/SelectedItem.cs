@@ -15,5 +15,10 @@ namespace TheBraverest.Models
         /// The total cost of the item
         /// </summary>
         public int Cost { get; set; }
+        /// <summary>
+        /// True if is a jungle item. 
+        /// This is used as a flag in the item set JSON to only show the block if our BraveChampion has selected smite as they were supposed to.
+        /// </summary>
+        public bool JungleItem { get; set; }
     }
 }

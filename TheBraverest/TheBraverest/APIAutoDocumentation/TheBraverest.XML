@@ -502,6 +502,154 @@
             </param>
             <returns>The recreated BraveChampion based off the BraveChampion.Version and BraveChampion.Seed provided</returns>
         </member>
+        <member name="M:TheBraverest.Controllers.ItemSetController.GetItemSet(System.String)">
+            <summary>
+            Use to create the raw JSON text for the item set file OR the file itself for a random BraveChampion!
+            </summary>
+            <param name="format">
+            Determines the format of the response you'll receive. Valid values are "text" and "file".
+            "text" will generate the raw JSON to be copied into the item set file.
+            "file" will generate the actual item set file that needs to be copied into the game directory.
+            The Path is League of Legends\Config\Champions\{championKey}\Recommended\
+            {championKey} is pulled from the RecommendedDto.ChampionKey property
+            </param>
+            <returns>Either JSON or the actual item set file</returns>
+        </member>
+        <member name="M:TheBraverest.Controllers.ItemSetController.GetBraveChampion(System.String,System.Int32)">
+            <summary>
+            Use this to recreate an originally random ItemSet.  
+            This is generally used to validate that someone is the Braverest person they claim to be.
+            </summary>
+            <param name="version">
+            The Version that the originally request had.  
+            This should be pulled from the RecommendedDto.Version property.
+            </param>
+            <param name="seed">
+            The Seed that the original request had.  
+            This should be pulled from the RecommendedDto.Seed property.
+            </param>
+            <returns>The recreated RecommendedDto based off the RecommendedDto.Version and RecommendedDto.Seed provided</returns>
+        </member>
+        <member name="P:TheBraverest.Models.API.BlockDto.Type">
+            <summary>
+            The name of the block as you would see it in the item set.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.BlockDto.RecMath">
+            <summary>
+            Use the tutorial formatting when displaying items in the block. 
+            All items within the block are separated by a plus sign with the last item being separated by an arrow indicating that the other items build into the last item. 
+            Defaults to false.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.BlockDto.MinSummonerLevel">
+            <summary>
+            The minimum required account level for the block to be visible to the player. Defaults to -1 which is equivalent to "any account level."
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.BlockDto.MaxSummonerLevel">
+            <summary>
+            The maximum allowed account level for the block to be visible to the player. Defaults to -1 which is equivalent to "any account level."
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.BlockDto.ShowIfSummonerSpell">
+            <summary>
+            Only show the block if the player has equipped a specific summoner spell. Can be any valid summoner spell key, e.g. SummonerDot. 
+            Defaults to an empty string. Will not override hideIfSummonerSpell.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.BlockDto.HideIfSummonerSpell">
+            <summary>
+            Hide the block if the player has equipped a specific summoner spell. Can be any valid summoner spell key, e.g. SummonerDot. 
+            Defaults to an empty string. Overrides showIfSummonerSpell.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.BlockDto.Items">
+            <summary>
+            An array of items to be displayed within the block.
+            </summary>
+        </member>
+        <member name="T:TheBraverest.Models.API.BlockItemDto">
+            <summary>
+            Represents an item that is displayed in a block of an item set.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.BlockItemDto.Id">
+            <summary>
+            The Id of the item to be displayed
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.BlockItemDto.Count">
+            <summary>
+            The number of items to buy
+            </summary>
+        </member>
+        <member name="T:TheBraverest.Models.API.RecommendedDto">
+            <summary>
+            All details needed to serialize into a real item set in the game
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.Title">
+            <summary>
+            The name of the item set as you would see it in the drop down.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.Type">
+            <summary>
+            Can be custom or global. 
+            This field is only used for grouping and sorting item sets. Custom item sets are ordered above global item sets. 
+            This field does not govern whether an item set available for every champion. 
+            To make an item set available for every champion, the JSON file must be placed an item set in the global folder.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.Map">
+            <summary>
+            The map this item set will appear on. Can be any, Summoner's Rift SR, Howling Abyss HA, Twisted Treeline TT, or Crystal Scar CS.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.Mode">
+            <summary>
+            The mode this item set will appear on. Can be any, CLASSIC, ARAM, or Dominion ODIN.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.Priority">
+            <summary>
+            Selectively sort this item set above other item sets. Overrides sortrank, but not type. Defaults to false.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.SortRank">
+            <summary>
+            The order in which this item set will be sorted within a specific type. Item sets are sorted in descending order.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.Blocks">
+            <summary>
+            The sections within an item set.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.ChampionKey">
+            <summary>
+            This is the Champion Key for the selected champion.
+            It is not actually used in the JSON file but it is used to determine what directory to place the item set file in.
+            The path is League of Legends\Config\Champions\{championKey}\Recommended\
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.Version">
+            <summary>
+            The Version of League of Legends that the request was originally made with.  This is used to recreate the BraveChampion or RecommendedDto.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.Seed">
+            <summary>
+            The random seed that is used to regenerate the BraveChampion or RecommendedDto.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.API.RecommendedDto.Success">
+            <summary>
+            True if successfully created the RecommendedDto.
+            This is not actually used in the JSON file.
+            </summary>
+        </member>
         <member name="T:TheBraverest.Models.BraveChampion">
             <summary>
             This represents the set of all information to create an item set and random selection for Champions, Items, Skill and Mastery
@@ -509,12 +657,17 @@
         </member>
         <member name="P:TheBraverest.Models.BraveChampion.Seed">
             <summary>
-            The random seed that is used to regenerate the BraveChampion
+            The random seed that is used to regenerate the BraveChampion or RecommendedDto.
             </summary>
         </member>
         <member name="P:TheBraverest.Models.BraveChampion.Version">
             <summary>
-            The Version of League of Legends that the request was originally made with.  This is used to recreate the BraveChampion
+            The Version of League of Legends that the request was originally made with.  This is used to recreate the BraveChampion or RecommendedDto.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.BraveChampion.Key">
+            <summary>
+            The Champion Key.  This is used to determine the directory to drop the item set file.
             </summary>
         </member>
         <member name="P:TheBraverest.Models.BraveChampion.Success">
@@ -595,6 +748,12 @@
         <member name="P:TheBraverest.Models.SelectedItem.Cost">
             <summary>
             The total cost of the item
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.SelectedItem.JungleItem">
+            <summary>
+            True if is a jungle item. 
+            This is used as a flag in the item set JSON to only show the block if our BraveChampion has selected smite as they were supposed to.
             </summary>
         </member>
     </members>
