@@ -48,7 +48,7 @@ namespace TheBraverest.Controllers
             return Ok(braveChampion);
         }
 
-        private async Task<BraveChampion> CreateBraveChampion(string version, int? seed)
+        internal static async Task<BraveChampion> CreateBraveChampion(string version, int? seed)
         {
             BraveChampion braveChampion = new BraveChampion();
             braveChampion.Seed = seed ?? (int) DateTime.Now.Ticks;
