@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>APIAutoDocumentation\TheBraverest.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -218,6 +219,8 @@
     <Compile Include="Models\API\LeagueDto.cs" />
     <Compile Include="Models\API\LeagueEntryDto.cs" />
     <Compile Include="Models\API\LevelTipDto.cs" />
+    <Compile Include="Models\API\MapDataDto.cs" />
+    <Compile Include="Models\API\MapDetailsDto.cs" />
     <Compile Include="Models\API\Mastery.cs" />
     <Compile Include="Models\API\MatchDetail.cs" />
     <Compile Include="Models\API\MatchSummary.cs" />
@@ -254,11 +257,12 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MasterySummary.cs" />
     <Compile Include="Models\SelectedItem.cs" />
-    <Compile Include="Models\SelectedSummonerSpell.cs" />
+    <Compile Include="Models\SelectedValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="APIAutoDocumentation\TheBraverest.XML" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

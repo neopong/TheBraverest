@@ -21,10 +21,16 @@ namespace TheBraverest.Controllers
         private static string apiKey = "04c3c3b3-fb27-483e-bc6b-87faaf62527a";
 
         // GET: api/BraveChampion
+        /// <summary>
+        /// Use to get a random BraveChampion for fun and profit.
+        /// </summary>
+        /// <returns>A BraveChampion to build an item set or visual display for</returns>
         [ResponseType(typeof(BraveChampion))]
         public async Task<IHttpActionResult> GetBraveChampion()
         {
-            BraveChampion braveChampion = await CreateBraveChampion(null, null);
+            //Right now Rito's map api is throwing 404's for version 5.15.1 and 5.16.1: Current version is 5.16.1
+            //When is back to working get rid of the hard coded version of 5.14.1
+            BraveChampion braveChampion = await CreateBraveChampion("5.14.1", null);
 
             if (!braveChampion.Success)
             {
@@ -34,7 +40,20 @@ namespace TheBraverest.Controllers
             return Ok(braveChampion);
         }
 
-        // GET: api/BraveChampion
+        // GET: api/BraveChampion/{version}/{seed}
+        /// <summary>
+        /// Use this to recreate an originally random BraveChampion.  
+        /// This is generally used to validate that someone is the Braverest person they claim to be.
+        /// </summary>
+        /// <param name="version">
+        /// The Version that the originally request had.  
+        /// This should be pulled from the BraveChampion.Version property.
+        /// </param>
+        /// <param name="seed">
+        /// The Seed that the original request had.  
+        /// This should be pulled from the BraveChampion.Seed property.
+        /// </param>
+        /// <returns>The recreated BraveChampion based off the BraveChampion.Version and BraveChampion.Seed provided</returns>
         [ResponseType(typeof(BraveChampion))]
         public async Task<IHttpActionResult> GetBraveChampion(string version, int seed)
         {
@@ -58,6 +77,7 @@ namespace TheBraverest.Controllers
             bool summonerSpellSuccess = false;
             bool hasSmite = false;
             bool isMelee = false;
+            bool mapSuccess = false;
 
             string versionAppend = "";
 
@@ -68,6 +88,39 @@ namespace TheBraverest.Controllers
             }
 
             Random random = new Random(braveChampion.Seed);
+
+            #region Pull Map Data
+            RESTResult<MapDataDto> mapData;
+
+            if (HttpRuntime.Cache.Get("MapData" + version ?? "") == null)
+            {
+                mapData = await
+                    RESTHelpers.RESTRequest<MapDataDto>(
+                        "https://global.api.pvp.net/api/lol/static-data/na/v1.2/map", "", apiKey, versionAppend);
+
+
+                if (mapData.Success)
+                {
+                    HttpRuntime.Cache.Add
+                    (
+                        "MapData" + version ?? "",
+                        mapData,
+                        null,
+                        DateTime.Now.AddDays(1.0),
+                        Cache.NoSlidingExpiration,
+                        CacheItemPriority.NotRemovable,
+                        null
+                    );
+
+                    mapSuccess = true;
+                }
+            }
+            else
+            {
+                mapData = (RESTResult<MapDataDto>)HttpRuntime.Cache.Get("MapData" + version ?? "");
+                mapSuccess = true;
+            }
+            #endregion Pull Map Data
 
             #region Champion Selection
             RESTResult<ChampionListDto> champs;
@@ -226,153 +279,215 @@ namespace TheBraverest.Controllers
             List<ItemDto> nonJungleBootOptions;
             List<ItemDto> jungleBootOptions;
             List<ItemDto> allItems;
-            
+            List<ItemDto> jungleOnlyItems;
+
             RESTResult<ItemListDto> itemResult;
 
             Dictionary<string, List<ItemDto>> allItemLists = new Dictionary<string, List<ItemDto>>();
 
-            if (HttpRuntime.Cache.Get("ItemLists" + version ?? "") == null)
+            if (mapSuccess)
             {
-                itemResult = await
-                    RESTHelpers.RESTRequest<ItemListDto>("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item",
-                        "",
-                        apiKey, "itemListData=all" + versionAppend);
-
-                if (itemResult.Success)
+                if (HttpRuntime.Cache.Get("ItemLists" + version ?? "") == null)
                 {
-                    allItems = itemResult.ReturnObject.Data.Values.ToList();
+                    itemResult = await
+                        RESTHelpers.RESTRequest<ItemListDto>(
+                            "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item",
+                            "",
+                            apiKey, "itemListData=all" + versionAppend);
 
-                    selectableJungleItems =
-                        itemResult.ReturnObject.Data.Values.Where(
-                            i =>
-                                i.Depth >= 3 && (i.Group == null || !i.Group.StartsWith("Boots")) &&
-                                !i.Name.ToLower().Contains("hex core")).ToList();
+                    if (itemResult.Success)
+                    {
+                        //Don't include Bilgewater event items and items that are not allowed on the Rift
+                        //There might be a better way to exclude Bilgewater items but I can't find it.  Is there a flag?
+                        allItems =
+                            itemResult.ReturnObject.Data.Values.Where(
+                                i =>
+                                    (i.Tags == null || !i.Tags.Contains("Bilgewater")) &&
+                                    !mapData.ReturnObject.Data["11"].UnpurchasableItemList.Any(id => id == i.Id))
+                                .ToList();
 
-                    jungleBootOptions =
-                        itemResult.ReturnObject.Data.Values.Where(
-                            i =>
-                                i.Depth >= 3 && i.Group != null && i.Group.StartsWith("Boots") &&
-                                !i.Name.ToLower().Contains("hex core")).ToList();
+                        selectableJungleItems =
+                            allItems.Where(
+                                i =>
+                                    i.Depth >= 3 && (i.Group == null || !i.Group.StartsWith("Boots")) &&
+                                    !i.Name.ToLower().Contains("hex core") && i.Into == null).ToList();
 
-                    selectableNonJungleItems =
-                        itemResult.ReturnObject.Data.Values.Where(
-                            i =>
-                                i.Depth >= 3 && (i.Group == null || !i.Group.StartsWith("Boots")) &&
-                                i.Group != "JungleItems" && !i.Name.ToLower().Contains("hex core")).ToList();
+                        //Get all boots but not in group BootsTeleport as not valid for map.
+                        //There might be a better way to exclude Bilgewater items but I can't find it.  Is there a flag?
+                        jungleBootOptions =
+                            allItems.Where(
+                                i =>
+                                    i.Depth >= 3 && i.Group != null && i.Group.StartsWith("Boots") &&
+                                    i.Group != "BootsTeleport" &&
+                                    !i.Name.ToLower().Contains("hex core") && i.Into == null).ToList();
 
-                    nonJungleBootOptions =
-                        itemResult.ReturnObject.Data.Values.Where(
-                            i =>
-                                i.Depth >= 3 && i.Group != null && i.Group.StartsWith("Boots") &&
-                                i.Group != "JungleItems" && !i.Name.ToLower().Contains("hex core")).ToList();
+                        selectableNonJungleItems =
+                            allItems.Where(
+                                i =>
+                                    i.Depth >= 3 && (i.Group == null || !i.Group.StartsWith("Boots")) &&
+                                    i.Group != "JungleItems" && !i.Name.ToLower().Contains("hex core") && i.Into == null)
+                                .ToList();
 
-                    allItemLists.Add("All", allItems);
-                    allItemLists.Add("SelectableJungleItems", selectableJungleItems);
-                    allItemLists.Add("JungleBootOptions", jungleBootOptions);
-                    allItemLists.Add("SelectableItems", selectableNonJungleItems);
-                    allItemLists.Add("BootOptions", nonJungleBootOptions);
+                        //Get all boots but not in group BootsTeleport as not valid for map.
+                        //There might be a better way to exclude Bilgewater items but I can't find it.  Is there a flag?
+                        nonJungleBootOptions =
+                            allItems.Where(
+                                i =>
+                                    i.Depth >= 3 && i.Group != null && i.Group.StartsWith("Boots") &&
+                                    i.Group != "BootsTeleport" &&
+                                    i.Group != "JungleItems" && !i.Name.ToLower().Contains("hex core") && i.Into == null)
+                                .ToList();
 
-                    HttpRuntime.Cache.Add
-                    (
-                        "ItemLists" + version ?? "",
-                        allItemLists,
-                        null,
-                        DateTime.Now.AddDays(1.0),
-                        Cache.NoSlidingExpiration,
-                        CacheItemPriority.NotRemovable,
-                        null
-                    );
+                        jungleOnlyItems = allItems.Where(i => i.Group == "JungleItems").ToList();
 
+                        allItemLists.Add("All", allItems);
+                        allItemLists.Add("SelectableJungleItems", selectableJungleItems);
+                        allItemLists.Add("JungleBootOptions", jungleBootOptions);
+                        allItemLists.Add("SelectableItems", selectableNonJungleItems);
+                        allItemLists.Add("BootOptions", nonJungleBootOptions);
+                        allItemLists.Add("JungleOnlyItems", jungleOnlyItems);
+
+                        HttpRuntime.Cache.Add
+                            (
+                                "ItemLists" + version ?? "",
+                                allItemLists,
+                                null,
+                                DateTime.Now.AddDays(1.0),
+                                Cache.NoSlidingExpiration,
+                                CacheItemPriority.NotRemovable,
+                                null
+                            );
+
+                        itemSuccess = true;
+                    }
+                }
+                else
+                {
+                    allItemLists =
+                        (Dictionary<string, List<ItemDto>>) HttpRuntime.Cache.Get("ItemLists" + version ?? "");
                     itemSuccess = true;
                 }
-            }
-            else
-            {
-                allItemLists = (Dictionary<string, List<ItemDto>>)HttpRuntime.Cache.Get("ItemLists" + version ?? "");
-                itemSuccess = true;
-            }
 
 
-            if (itemSuccess)
-            {
-                if (hasSmite)
+                if (itemSuccess)
                 {
-                    selectableItems = allItemLists["SelectableJungleItems"];
-                    bootOptions = allItemLists["JungleBootOptions"];
-                }
-                else
-                {
-                    selectableItems = allItemLists["SelectableItems"];
-                    bootOptions = allItemLists["BootOptions"];
-                }
-
-                allItems = allItemLists["All"];
-
-                ItemDto selectedItemDto;
-                ItemDto relatedBoot;
-
-                //Non-viktor builds get boots
-                if (braveChampion.Champion.Id != 112)
-                {
-                    selectedItemDto = bootOptions[random.Next(0, bootOptions.Count - 1)];
-                    relatedBoot = allItems.FirstOrDefault(b => b.Id.ToString() == selectedItemDto.From[0]);
-
-                    itemList.Add(new SelectedItem()
+                    if (hasSmite)
                     {
-                        Cost = selectedItemDto.Gold.Total,
-                        Id = selectedItemDto.Id,
-                        ImageUrl =
-                            string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/item/{1}",
-                                braveChampion.Version, selectedItemDto.Image.Full),
-                        Name = string.Format("{0} - {1}", relatedBoot.Name, selectedItemDto.Name)
-                    });
-                }
-                //Viktor builds get the Perfect Hex Core
-                else
-                {
-                    selectedItemDto = allItems.FirstOrDefault(i => i.Name == "Perfect Hex Core");
-
-                    itemList.Add(new SelectedItem()
+                        selectableItems = allItemLists["SelectableJungleItems"];
+                        bootOptions = allItemLists["JungleBootOptions"];
+                    }
+                    else
                     {
-                        Cost = selectedItemDto.Gold.Total,
-                        Id = selectedItemDto.Id,
-                        ImageUrl =
-                            string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/item/{1}",
-                                braveChampion.Version, selectedItemDto.Image.Full),
-                        Name = selectedItemDto.Name
-                    });
-                }
+                        selectableItems = allItemLists["SelectableItems"];
+                        bootOptions = allItemLists["BootOptions"];
+                    }
 
-                for (int i = 0; i < 5; i++)
-                {
-                    do
+                    jungleOnlyItems = allItemLists["JungleOnlyItems"];
+
+                    allItems = allItemLists["All"];
+
+                    ItemDto selectedItemDto;
+                    ItemDto relatedBoot;
+
+                    //Non-viktor builds get boots
+                    if (braveChampion.Champion.Id != 112)
                     {
-                        selectedItemDto = selectableItems[random.Next(0, selectableItems.Count - 1)];
-                    } while
-                        (
-                        //Ensure we haven't selected the item already
-                        itemList.Any(si => si.Id == selectedItemDto.Id)
-                        ||
-                        //Don't allow melee champions to buy ranged only items
-                        (isMelee && selectedItemDto.Name.Contains("(Ranged Only)"))
-                        ||
-                        //Don't allow ranged champions to buy melee only items
-                        (!isMelee && selectedItemDto.Name.Contains("(Melee Only)"))
-                        );
+                        selectedItemDto = bootOptions[random.Next(0, bootOptions.Count - 1)];
+                        relatedBoot = allItems.FirstOrDefault(b => b.Id.ToString() == selectedItemDto.From[0]);
 
-                    itemList.Add(new SelectedItem()
+                        itemList.Add(new SelectedItem()
+                        {
+                            Cost = selectedItemDto.Gold.Total,
+                            Id = selectedItemDto.Id,
+                            ImageUrl =
+                                string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/item/{1}",
+                                    braveChampion.Version, selectedItemDto.Image.Full),
+                            Name = string.Format("{0} - {1}", relatedBoot.Name, selectedItemDto.Name)
+                        });
+                    }
+                    //Viktor builds get the Perfect Hex Core
+                    else
                     {
-                        Cost = selectedItemDto.Gold.Total,
-                        Id = selectedItemDto.Id,
-                        ImageUrl =
-                            string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/item/{1}",
-                                braveChampion.Version, selectedItemDto.Image.Full),
-                        Name = selectedItemDto.Name
-                    });
+                        selectedItemDto = allItems.FirstOrDefault(i => i.Name == "Perfect Hex Core");
+
+                        itemList.Add(new SelectedItem()
+                        {
+                            Cost = selectedItemDto.Gold.Total,
+                            Id = selectedItemDto.Id,
+                            ImageUrl =
+                                string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/item/{1}",
+                                    braveChampion.Version, selectedItemDto.Image.Full),
+                            Name = selectedItemDto.Name
+                        });
+                    }
+
+                    bool hasJungleItem = false;
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        bool isJungleItem;
+                        do
+                        {
+                            selectedItemDto = selectableItems[random.Next(0, selectableItems.Count - 1)];
+
+                            if (hasSmite && selectedItemDto.Group == "JungleItems")
+                            {
+                                isJungleItem = true;
+                            }
+                            else
+                            {
+                                isJungleItem = false;
+                            }
+                            //TODO: Link jungle item enchant to base jungle item for more clarity in the name
+                        } while
+                            (
+                            //Ensure we haven't selected the item already
+                            itemList.Any(si => si.Id == selectedItemDto.Id)
+                            ||
+                            //Don't allow melee champions to buy ranged only items.  Might be a better way to do this but I don't see it.  Is there an actual flag?
+                            (isMelee && selectedItemDto.Name.Contains("(Ranged Only)"))
+                            ||
+                            //Don't allow ranged champions to buy melee only items.  Might be a better way to do this but I don't see it.  Is there an actual flag?
+                            (!isMelee && selectedItemDto.Name.Contains("(Melee Only)"))
+                            ||
+                            //Don't allow more than one jungle item to be added
+                            (hasJungleItem && isJungleItem)
+                            );
+
+                        string itemName = selectedItemDto.Name;
+
+                        //Append base jungle item name to enchantment like we do with boots for jungle items
+                        if (isJungleItem)
+                        {
+                            hasJungleItem = true;
+                            ItemDto baseJungleItem;
+
+                            foreach (string itemId in selectedItemDto.From)
+                            {
+
+                                baseJungleItem = jungleOnlyItems.FirstOrDefault(ji => ji.Id == Convert.ToInt32(itemId));
+
+                                if (baseJungleItem != null)
+                                {
+                                    itemName = string.Format("{0} - {1}", baseJungleItem.Name, selectedItemDto.Name);
+                                    break;
+                                }
+                            }
+                        }
+
+                        itemList.Add(new SelectedItem()
+                        {
+                            Cost = selectedItemDto.Gold.Total,
+                            Id = selectedItemDto.Id,
+                            ImageUrl =
+                                string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/item/{1}",
+                                    braveChampion.Version, selectedItemDto.Image.Full),
+                            Name = itemName
+                        });
+                    }
+
+                    braveChampion.Items = itemList;
                 }
-
-
-                braveChampion.Items = itemList;
             }
             #endregion Item Selection
 
@@ -391,7 +506,7 @@ namespace TheBraverest.Controllers
             #endregion Mastery Summary Selection
 
             //Only successful if got champion, item and summoner spell data.
-            braveChampion.Success = champSuccess && itemSuccess && summonerSpellSuccess;
+            braveChampion.Success = mapSuccess && champSuccess && itemSuccess && summonerSpellSuccess;
 
             return braveChampion;
         }
