@@ -56,7 +56,7 @@
                     <h3>Get your Braverest Build Now!</h3>
                     <p>Click the button below to get started</p>
                     
-                    <button type="button" id="submit-build-request" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#response-modal">Create My Build</button>
+                    <button type="button" id="submit-build-request" data-backdrop="static" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#response-modal">Create My Build</button>
                 </div>
             </div><!--/.row-->
         <div class="row">
@@ -126,8 +126,34 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h4>Your Champion Is!</h4>
+                        <img id="image-champion" width="64" height="64" />
+                        <h3 id="label-champion-name"></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>You Items Are!</h4>
+                        <ul class="list-unstyled" id="list-items">
+                            <!-- Add list items here -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Your Summoner Spells Are!</h3>
+                        <ul class="list-unstyled" id="list-summoner-spells">
 
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Your Masteries Must Be</h4>
+                        <p><strong>Offense: </strong><span id="label-mastery-offense"></span></p>
+                        <p><strong>Defense: </strong><span id="label-mastery-defense"></span></p>
+                        <p><strong>Utility: </strong><span id="label-mastery-utility"></span></p>
                     </div>
                 </div>
             </div>

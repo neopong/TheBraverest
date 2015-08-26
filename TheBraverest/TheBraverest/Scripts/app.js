@@ -2,7 +2,8 @@
 (function (window, $, TheBraverest) {
     var spinnerHtml = '<div class="throbber-loader">Loading…</div>';
     var responseHtml = $('#response-modal .modal-body').html().toString();
-    
+    var thumbnailWidth = 64;
+    var thumbnailHeight = 64;
 
     function submitBuildRequest() {
         var actionData = TheBraverest.actionGetBraveChampion;
@@ -16,12 +17,41 @@
 
 
     $('#submit-build-request').click(function (e) {
-        var replacement = responseHtml;
+        var template = responseHtml;
         $('#response-modal .modal-body').html(spinnerHtml);
         $.when(submitBuildRequest())
         .done(function (response) {
-            //TODO: display data from the thingy on the modal.
-            var test = response;
+            //Set the template into the modal
+            $('#response-modal .modal-body').html(template);
+
+            //Insert champion data into template
+            $('#label-champion-name').text(response.Champion.Name);
+            $('#image-champion').attr('src', response.Champion.ImageUrl);
+
+            //Insert items into template
+            for(var i = 0; i < response.Items.length; i++){
+                var item = response.Items[i];
+                $('#list-items').append(
+                    '<li>' +
+                    '   <img src="'+ item.ImageUrl +'" width="' + thumbnailWidth + '" height="' + thumbnailHeight + '" />' +
+                    '   <strong>' + item.Name + '</strong>' +
+                    '</li>');
+            }
+            //Insert summoner spells into template
+            for (var i = 0; i < response.SummonerSpells.length; i++) {
+                var item = response.SummonerSpells[i];
+                $('#list-summoner-spells').append(
+                    '<li>' +
+                    '   <img src="' + item.ImageUrl + '" width="' + thumbnailWidth + '" height="' + thumbnailHeight + '" />' +
+                    '   <strong>' + item.Name + '</strong>' +
+                    '</li>');
+            }
+            
+            //Insert masteries into the template
+            $('#label-master-offense').text(response.MasterySummary.Offense);
+            $('#label-master-defense').text(response.MasterySummary.Defense);
+            $('#label-master-utility').text(response.MasterySummary.Utility);
+
 
         });
     });
