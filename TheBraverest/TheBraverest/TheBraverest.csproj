@@ -41,6 +41,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -258,6 +260,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MasterySummary.cs" />
     <Compile Include="Models\SelectedItem.cs" />
+    <Compile Include="Models\SelectedSkill.cs" />
+    <Compile Include="Models\SelectedSummonerSpell.cs" />
     <Compile Include="Models\SelectedValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

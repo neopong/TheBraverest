@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace TheBraverest.Models
     /// </summary>
     public class BraveChampion
     {
-        private static string apiKey = "04c3c3b3-fb27-483e-bc6b-87faaf62527a";
+        private static string apiKey = ConfigurationManager.AppSettings["ApiKey"];
 
         /// <summary>
         /// The random seed that is used to regenerate the BraveChampion or RecommendedDto.
@@ -41,7 +42,7 @@ namespace TheBraverest.Models
         /// <summary>
         /// The randomly selected Skill to max first
         /// </summary>
-        public SelectedValue Skill { get; set; }
+        public SelectedSkill Skill { get; set; }
         /// <summary>
         /// The list of items to buy in order
         /// </summary>
@@ -49,7 +50,7 @@ namespace TheBraverest.Models
         /// <summary>
         /// The random Summoner Spells to play with
         /// </summary>
-        public List<SelectedValue> SummonerSpells { get; set; }
+        public List<SelectedSummonerSpell> SummonerSpells { get; set; }
         /// <summary>
         /// The summary of Mastery distribution points
         /// </summary>
@@ -165,16 +166,32 @@ namespace TheBraverest.Models
 
                 #region Skill Selection
                 int skillNum = random.Next(0, 3);
+                string skillLetter = "";
 
+                switch (skillNum)
+                {
+                    case 0:
+                        skillLetter = "Q";
+                        break;
+                    case 1:
+                        skillLetter = "W";
+                        break;
+                    case 2:
+                        skillLetter = "E";
+                        break;
+                    default:
+                        break;
+                }
                 ChampionSpellDto selectedSkill = selectedChamp.Spells[skillNum];
 
-                braveChampion.Skill = new SelectedValue()
+                braveChampion.Skill = new SelectedSkill()
                 {
                     Id = skillNum,
                     ImageUrl =
                         string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/spell/{1}",
                             braveChampion.Version, selectedSkill.Image.Full),
-                    Name = selectedSkill.Name
+                    Name = selectedSkill.Name,
+                    Letter = skillLetter
                 };
                 #endregion Skill Selection
 
@@ -225,15 +242,16 @@ namespace TheBraverest.Models
                     hasSmite = true;
                 }
 
-                braveChampion.SummonerSpells = new List<SelectedValue>();
+                braveChampion.SummonerSpells = new List<SelectedSummonerSpell>();
 
-                braveChampion.SummonerSpells.Add(new SelectedValue()
+                braveChampion.SummonerSpells.Add(new SelectedSummonerSpell()
                 {
                     Id = selectedSummonerSpell.Id,
                     ImageUrl =
                         string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/spell/{1}",
                             braveChampion.Version, selectedSummonerSpell.Image.Full),
-                    Name = selectedSummonerSpell.Name
+                    Name = selectedSummonerSpell.Name,
+                    Key = selectedSummonerSpell.Key
                 });
 
                 do
@@ -246,13 +264,14 @@ namespace TheBraverest.Models
                     hasSmite = true;
                 }
 
-                braveChampion.SummonerSpells.Add(new SelectedValue()
+                braveChampion.SummonerSpells.Add(new SelectedSummonerSpell()
                 {
                     Id = selectedSummonerSpell.Id,
                     ImageUrl =
                         string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/spell/{1}",
                             braveChampion.Version, selectedSummonerSpell.Image.Full),
-                    Name = selectedSummonerSpell.Name
+                    Name = selectedSummonerSpell.Name,
+                    Key = selectedSummonerSpell.Key
                 });
 
                 summonerSpellSuccess = true;
@@ -300,7 +319,8 @@ namespace TheBraverest.Models
                             allItems.Where(
                                 i =>
                                     i.Depth >= 3 && (i.Group == null || !i.Group.StartsWith("Boots")) &&
-                                    !i.Name.ToLower().Contains("hex core") && i.Into == null).ToList();
+                                    !i.Name.ToLower().Contains("hex core") && i.Into == null && i.Gold.Purchasable)
+                                .ToList();
 
                         //Get all boots but not in group BootsTeleport as not valid for map.
                         //There might be a better way to exclude Bilgewater items but I can't find it.  Is there a flag?
@@ -309,13 +329,15 @@ namespace TheBraverest.Models
                                 i =>
                                     i.Depth >= 3 && i.Group != null && i.Group.StartsWith("Boots") &&
                                     i.Group != "BootsTeleport" &&
-                                    !i.Name.ToLower().Contains("hex core") && i.Into == null).ToList();
+                                    !i.Name.ToLower().Contains("hex core") && i.Into == null && i.Gold.Purchasable)
+                                .ToList();
 
                         selectableNonJungleItems =
                             allItems.Where(
                                 i =>
                                     i.Depth >= 3 && (i.Group == null || !i.Group.StartsWith("Boots")) &&
-                                    i.Group != "JungleItems" && !i.Name.ToLower().Contains("hex core") && i.Into == null)
+                                    i.Group != "JungleItems" && !i.Name.ToLower().Contains("hex core") && i.Into == null &&
+                                    i.Gold.Purchasable)
                                 .ToList();
 
                         //Get all boots but not in group BootsTeleport as not valid for map.
@@ -325,10 +347,11 @@ namespace TheBraverest.Models
                                 i =>
                                     i.Depth >= 3 && i.Group != null && i.Group.StartsWith("Boots") &&
                                     i.Group != "BootsTeleport" &&
-                                    i.Group != "JungleItems" && !i.Name.ToLower().Contains("hex core") && i.Into == null)
+                                    i.Group != "JungleItems" && !i.Name.ToLower().Contains("hex core") && i.Into == null &&
+                                    i.Gold.Purchasable)
                                 .ToList();
 
-                        jungleOnlyItems = allItems.Where(i => i.Group == "JungleItems").ToList();
+                        jungleOnlyItems = allItems.Where(i => i.Group == "JungleItems" && i.Gold.Purchasable).ToList();
 
                         allItemLists.Add("All", allItems);
                         allItemLists.Add("SelectableJungleItems", selectableJungleItems);
@@ -392,7 +415,8 @@ namespace TheBraverest.Models
                             ImageUrl =
                                 string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/item/{1}",
                                     braveChampion.Version, selectedItemDto.Image.Full),
-                            Name = string.Format("{0} - {1}", relatedBoot.Name, selectedItemDto.Name)
+                            Name = string.Format("{0} - {1}", relatedBoot.Name, selectedItemDto.Name),
+                            From = new List<int>() { 1001, relatedBoot.Id }
                         });
                     }
                     //Viktor builds get the Perfect Hex Core
@@ -407,7 +431,8 @@ namespace TheBraverest.Models
                             ImageUrl =
                                 string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/item/{1}",
                                     braveChampion.Version, selectedItemDto.Image.Full),
-                            Name = selectedItemDto.Name
+                            Name = selectedItemDto.Name,
+                            From = new List<int>() { 3200, 3196, 3197 }
                         });
                     }
 
@@ -428,7 +453,6 @@ namespace TheBraverest.Models
                             {
                                 isJungleItem = false;
                             }
-                            //TODO: Link jungle item enchant to base jungle item for more clarity in the name
                         } while
                             (
                             //Ensure we haven't selected the item already
@@ -445,12 +469,15 @@ namespace TheBraverest.Models
                             );
 
                         string itemName = selectedItemDto.Name;
+                        List<int> itemFrom = new List<int>();
 
                         //Append base jungle item name to enchantment like we do with boots for jungle items
                         if (isJungleItem)
                         {
                             hasJungleItem = true;
                             ItemDto baseJungleItem;
+
+                            itemFrom.Add(1039);
 
                             foreach (string itemId in selectedItemDto.From)
                             {
@@ -465,6 +492,11 @@ namespace TheBraverest.Models
                             }
                         }
 
+                        if (selectedItemDto.From != null)
+                        {
+                            itemFrom.AddRange(selectedItemDto.From.Select(si => Convert.ToInt32(si)));
+                        }
+
                         itemList.Add(new SelectedItem()
                         {
                             Cost = selectedItemDto.Gold.Total,
@@ -473,7 +505,8 @@ namespace TheBraverest.Models
                                 string.Format("http://ddragon.leagueoflegends.com/cdn/{0}/img/item/{1}",
                                     braveChampion.Version, selectedItemDto.Image.Full),
                             Name = itemName,
-                            JungleItem = isJungleItem
+                            JungleItem = isJungleItem,
+                            From = itemFrom
                         });
                     }
 

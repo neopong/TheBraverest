@@ -23,40 +23,21 @@ namespace TheBraverest.Controllers
         /// <summary>
         /// Use to get a random BraveChampion for fun and profit.
         /// </summary>
-        /// <returns>A BraveChampion to build an item set or visual display for</returns>
-        [ResponseType(typeof(BraveChampion))]
-        public async Task<IHttpActionResult> GetBraveChampion()
-        {
-            //Right now Rito's map api is throwing 404's for version 5.15.1 and 5.16.1: Current version is 5.16.1
-            //When is back to working get rid of the hard coded version of 5.14.1
-            BraveChampion braveChampion = await BraveChampion.Create("5.14.1", null);
-
-            if (!braveChampion.Success)
-            {
-                return NotFound();
-            }
-
-            return Ok(braveChampion);
-        }
-
-        // GET: api/BraveChampion/{version}/{seed}
-        /// <summary>
-        /// Use this to recreate an originally random BraveChampion.  
-        /// This is generally used to validate that someone is the Braverest person they claim to be.
-        /// </summary>
         /// <param name="version">
         /// The Version that the originally request had.  
-        /// This should be pulled from the BraveChampion.Version property.
+        /// This should be pulled from the BraveChampion.Version property. **Optional**
         /// </param>
         /// <param name="seed">
         /// The Seed that the original request had.  
-        /// This should be pulled from the BraveChampion.Seed property.
+        /// This should be pulled from the BraveChampion.Seed property. **Optional**
         /// </param>
-        /// <returns>The recreated BraveChampion based off the BraveChampion.Version and BraveChampion.Seed provided</returns>
+        /// <returns>A BraveChampion to build an item set or visual display for</returns>
         [ResponseType(typeof(BraveChampion))]
-        public async Task<IHttpActionResult> GetBraveChampion(string version, int seed)
+        public async Task<IHttpActionResult> GetBraveChampion(string version = null, int? seed = null)
         {
-            BraveChampion braveChampion = await BraveChampion.Create(version, seed);
+            //Right now Rito's map api is throwing 404's for version 5.15.1 and 5.16.1: Current version is 5.16.1
+            //When is back to working get rid of the hard coded version of 5.14.1
+            BraveChampion braveChampion = await BraveChampion.Create(version ?? "5.14.1", seed);
 
             if (!braveChampion.Success)
             {
@@ -65,6 +46,5 @@ namespace TheBraverest.Controllers
 
             return Ok(braveChampion);
         }
-
     }
 }

@@ -66,6 +66,21 @@ namespace TheBraverest.Models.API
 
         internal static async Task<RecommendedDto> CreateRecommendedDto(string version, int? seed)
         {
+            Dictionary<string, string> summonerSpellList = new Dictionary<string, string>()
+            {
+                {"SummonerBarrier",      "Barrier"},
+                {"SummonerBoost",        "Cleanse"},
+                {"SummonerClairvoyance", "Clairvoyance"},
+                {"SummonerDot",          "Ignite"},
+                {"SummonerExhaust",      "Exhaust"},
+                {"SummonerFlash",        "Flash"},
+                {"SummonerHaste",        "Ghost"},
+                {"SummonerHeal",         "Heal"},
+                {"SummonerMana",         "Clarity"},
+                {"SummonerSmite",        "Smite"},
+                {"SummonerTeleport",     "Teleport"}
+            };
+
             RecommendedDto recommendedDto = new RecommendedDto();
 
             BraveChampion braveChampion = await BraveChampion.Create(version, seed);
@@ -78,10 +93,12 @@ namespace TheBraverest.Models.API
             {
 
                 recommendedDto.title =
-                    string.Format("THE BRAVEREST {0} max {1} 1st with {2} + {3} - {4}/{5}/{6} Masteries",
-                        braveChampion.Champion.Name, braveChampion.Skill.Name, braveChampion.SummonerSpells[0].Name,
+                    string.Format("BRAVEREST: Max {0} 1st ({1} + {2}) - {3}/{4}/{5} Masteries",
+                        braveChampion.Skill.Letter, 
+                        braveChampion.SummonerSpells[0].Name,
                         braveChampion.SummonerSpells[1].Name,
-                        braveChampion.MasterySummary.Offense, braveChampion.MasterySummary.Defense,
+                        braveChampion.MasterySummary.Offense, 
+                        braveChampion.MasterySummary.Defense,
                         braveChampion.MasterySummary.Utility);
 
                 recommendedDto.type = "custom";
@@ -97,6 +114,37 @@ namespace TheBraverest.Models.API
 
                 int itemIndex = 1;
 
+                //Add special blocks for those who haven't selected the proper summoner spells
+                foreach (KeyValuePair<string, string> summonerSpell in summonerSpellList)
+                {
+                    if (braveChampion.SummonerSpells[0].Key != summonerSpell.Key &&
+                        braveChampion.SummonerSpells[1].Key != summonerSpell.Key)
+                    {
+                        BlockDto newBlock = new BlockDto();
+
+                        newBlock.type = "Cowardice is a true virtue of a summoner that chooses " + summonerSpell.Value +
+                                        " when they're not supposed to. BOO!";
+
+                        newBlock.recMath = true;
+                        newBlock.minSummonerLevel = -1;
+                        newBlock.maxSummonerLevel = -1;
+
+                        newBlock.showIfSummonerSpell = summonerSpell.Key;
+
+                        newBlock.hideIfSummonerSpell = "";
+
+                        newBlock.items = new List<BlockItemDto>();
+                        newBlock.items.Add(new BlockItemDto() { id = "1001", count = 1 });
+                        newBlock.items.Add(new BlockItemDto() { id = "1331", count = 1 });
+                        newBlock.items.Add(new BlockItemDto() { id = "1332", count = 1 });
+                        newBlock.items.Add(new BlockItemDto() { id = "1333", count = 1 });
+                        newBlock.items.Add(new BlockItemDto() { id = "1334", count = 1 });
+
+                        recommendedDto.blocks.Add(newBlock);
+                    }
+                }
+
+                //Now add the real blocks
                 foreach (SelectedItem item in braveChampion.Items)
                 {
                     BlockDto newBlock = new BlockDto();
@@ -124,16 +172,26 @@ namespace TheBraverest.Models.API
                         default:
                             break;
                     }
-                    newBlock.recMath = false;
+
+                    newBlock.recMath = true;
                     newBlock.minSummonerLevel = -1;
                     newBlock.maxSummonerLevel = -1;
 
-                    //If the item is a jungle item only show it if our supposed Brave Champion selected smite as they were supposed to
-                    newBlock.showIfSummonerSpell = item.JungleItem ? "SummonerSmite" : "";
+                    //Only show block if our supposed Brave Champion selected a summoner spell they were supposed to
+                    newBlock.showIfSummonerSpell = item.JungleItem ? "SummonerSmite" : braveChampion.SummonerSpells[0].Key;
 
                     newBlock.hideIfSummonerSpell = "";
 
                     newBlock.items = new List<BlockItemDto>();
+
+                    if (item.From != null)
+                    {
+                        foreach (int childItem in item.From)
+                        {
+                            newBlock.items.Add(new BlockItemDto() { id = childItem.ToString(), count = 1 });
+                        }
+                    }
+
                     newBlock.items.Add(new BlockItemDto() { id = item.Id.ToString(), count = 1 });
 
                     recommendedDto.blocks.Add(newBlock);
@@ -141,6 +199,8 @@ namespace TheBraverest.Models.API
                     itemIndex++;
                 }
 
+
+                
                 recommendedDto.Success = true;
             }
 

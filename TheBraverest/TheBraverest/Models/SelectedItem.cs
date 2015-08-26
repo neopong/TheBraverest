@@ -20,5 +20,9 @@ namespace TheBraverest.Models
         /// This is used as a flag in the item set JSON to only show the block if our BraveChampion has selected smite as they were supposed to.
         /// </summary>
         public bool JungleItem { get; set; }
+        /// <summary>
+        /// List of Item Id's that this item builds from
+        /// </summary>
+        public List<int> From { get; set; }
     }
 }
