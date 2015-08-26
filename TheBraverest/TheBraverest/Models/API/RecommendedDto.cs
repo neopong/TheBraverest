@@ -16,34 +16,34 @@ namespace TheBraverest.Models.API
         /// <summary>
         /// The name of the item set as you would see it in the drop down.
         /// </summary>
-        public string Title { get; set; }
+        public string title { get; set; }
         /// <summary>
         /// Can be custom or global. 
         /// This field is only used for grouping and sorting item sets. Custom item sets are ordered above global item sets. 
         /// This field does not govern whether an item set available for every champion. 
         /// To make an item set available for every champion, the JSON file must be placed an item set in the global folder.
         /// </summary>
-        public string Type { get; set; }
+        public string type { get; set; }
         /// <summary>
         /// The map this item set will appear on. Can be any, Summoner's Rift SR, Howling Abyss HA, Twisted Treeline TT, or Crystal Scar CS.
         /// </summary>
-        public string Map { get; set; }
+        public string map { get; set; }
         /// <summary>
         /// The mode this item set will appear on. Can be any, CLASSIC, ARAM, or Dominion ODIN.
         /// </summary>
-        public string Mode { get; set; }
+        public string mode { get; set; }
         /// <summary>
         /// Selectively sort this item set above other item sets. Overrides sortrank, but not type. Defaults to false.
         /// </summary>
-        public bool Priority { get; set; }
+        public bool priority { get; set; }
         /// <summary>
         /// The order in which this item set will be sorted within a specific type. Item sets are sorted in descending order.
         /// </summary>
-        public int SortRank { get; set; }
+        public int sortrank { get; set; }
         /// <summary>
         /// The sections within an item set.
         /// </summary>
-        public List<BlockDto> Blocks { get; set; }
+        public List<BlockDto> blocks { get; set; }
         /// <summary>
         /// This is the Champion Key for the selected champion.
         /// It is not actually used in the JSON file but it is used to determine what directory to place the item set file in.
@@ -77,23 +77,23 @@ namespace TheBraverest.Models.API
             else
             {
 
-                recommendedDto.Title =
+                recommendedDto.title =
                     string.Format("THE BRAVEREST {0} max {1} 1st with {2} + {3} - {4}/{5}/{6} Masteries",
                         braveChampion.Champion.Name, braveChampion.Skill.Name, braveChampion.SummonerSpells[0].Name,
                         braveChampion.SummonerSpells[1].Name,
                         braveChampion.MasterySummary.Offense, braveChampion.MasterySummary.Defense,
                         braveChampion.MasterySummary.Utility);
 
-                recommendedDto.Type = "custom";
-                recommendedDto.Map = "SR";
-                recommendedDto.Mode = "CLASSIC";
-                recommendedDto.Priority = true;
-                recommendedDto.SortRank = 0;
+                recommendedDto.type = "custom";
+                recommendedDto.map = "SR";
+                recommendedDto.mode = "CLASSIC";
+                recommendedDto.priority = true;
+                recommendedDto.sortrank = 0;
                 recommendedDto.ChampionKey = braveChampion.Key;
                 recommendedDto.Version = braveChampion.Version;
                 recommendedDto.Seed = braveChampion.Seed;
 
-                recommendedDto.Blocks = new List<BlockDto>();
+                recommendedDto.blocks = new List<BlockDto>();
 
                 int itemIndex = 1;
 
@@ -104,39 +104,39 @@ namespace TheBraverest.Models.API
                     switch (itemIndex)
                     {
                         case 1:
-                            newBlock.Type = "I'm a little brave (Buy 1st)";
+                            newBlock.type = "I'm a little brave (Buy 1st)";
                             break;
                         case 2:
-                            newBlock.Type = "I'm braver than most (Buy 2nd)";
+                            newBlock.type = "I'm braver than most (Buy 2nd)";
                             break;
                         case 3:
-                            newBlock.Type = "Have you seen the size of these?! (Buy 3rd)";
+                            newBlock.type = "Have you seen the size of these?! (Buy 3rd)";
                             break;
                         case 4:
-                            newBlock.Type = "I'm not a troll, I'm your master! (Buy 4th)";
+                            newBlock.type = "I'm not a troll, I'm your master! (Buy 4th)";
                             break;
                         case 5:
-                            newBlock.Type = "Even Teemo trembles in my presence... (Buy 5th)";
+                            newBlock.type = "Even Teemo trembles in my presence... (Buy 5th)";
                             break;
                         case 6:
-                            newBlock.Type = "I'M THE BRAVEREST!!1 (Buy Last and bust a seam)";
+                            newBlock.type = "I'M THE BRAVEREST!!1 (Buy Last and bust a seam)";
                             break;
                         default:
                             break;
                     }
-                    newBlock.RecMath = false;
-                    newBlock.MinSummonerLevel = -1;
-                    newBlock.MaxSummonerLevel = -1;
+                    newBlock.recMath = false;
+                    newBlock.minSummonerLevel = -1;
+                    newBlock.maxSummonerLevel = -1;
 
                     //If the item is a jungle item only show it if our supposed Brave Champion selected smite as they were supposed to
-                    newBlock.ShowIfSummonerSpell = item.JungleItem ? "SummonerSmite" : "";
+                    newBlock.showIfSummonerSpell = item.JungleItem ? "SummonerSmite" : "";
 
-                    newBlock.HideIfSummonerSpell = "";
+                    newBlock.hideIfSummonerSpell = "";
 
-                    newBlock.Items = new List<BlockItemDto>();
-                    newBlock.Items.Add(new BlockItemDto() { Id = item.Id.ToString(), Count = 1 });
+                    newBlock.items = new List<BlockItemDto>();
+                    newBlock.items.Add(new BlockItemDto() { id = item.Id.ToString(), count = 1 });
 
-                    recommendedDto.Blocks.Add(newBlock);
+                    recommendedDto.blocks.Add(newBlock);
 
                     itemIndex++;
                 }

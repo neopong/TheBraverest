@@ -530,41 +530,41 @@
             </param>
             <returns>The recreated RecommendedDto based off the RecommendedDto.Version and RecommendedDto.Seed provided</returns>
         </member>
-        <member name="P:TheBraverest.Models.API.BlockDto.Type">
+        <member name="P:TheBraverest.Models.API.BlockDto.type">
             <summary>
             The name of the block as you would see it in the item set.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.BlockDto.RecMath">
+        <member name="P:TheBraverest.Models.API.BlockDto.recMath">
             <summary>
             Use the tutorial formatting when displaying items in the block. 
             All items within the block are separated by a plus sign with the last item being separated by an arrow indicating that the other items build into the last item. 
             Defaults to false.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.BlockDto.MinSummonerLevel">
+        <member name="P:TheBraverest.Models.API.BlockDto.minSummonerLevel">
             <summary>
             The minimum required account level for the block to be visible to the player. Defaults to -1 which is equivalent to "any account level."
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.BlockDto.MaxSummonerLevel">
+        <member name="P:TheBraverest.Models.API.BlockDto.maxSummonerLevel">
             <summary>
             The maximum allowed account level for the block to be visible to the player. Defaults to -1 which is equivalent to "any account level."
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.BlockDto.ShowIfSummonerSpell">
+        <member name="P:TheBraverest.Models.API.BlockDto.showIfSummonerSpell">
             <summary>
             Only show the block if the player has equipped a specific summoner spell. Can be any valid summoner spell key, e.g. SummonerDot. 
             Defaults to an empty string. Will not override hideIfSummonerSpell.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.BlockDto.HideIfSummonerSpell">
+        <member name="P:TheBraverest.Models.API.BlockDto.hideIfSummonerSpell">
             <summary>
             Hide the block if the player has equipped a specific summoner spell. Can be any valid summoner spell key, e.g. SummonerDot. 
             Defaults to an empty string. Overrides showIfSummonerSpell.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.BlockDto.Items">
+        <member name="P:TheBraverest.Models.API.BlockDto.items">
             <summary>
             An array of items to be displayed within the block.
             </summary>
@@ -574,12 +574,12 @@
             Represents an item that is displayed in a block of an item set.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.BlockItemDto.Id">
+        <member name="P:TheBraverest.Models.API.BlockItemDto.id">
             <summary>
             The Id of the item to be displayed
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.BlockItemDto.Count">
+        <member name="P:TheBraverest.Models.API.BlockItemDto.count">
             <summary>
             The number of items to buy
             </summary>
@@ -589,12 +589,12 @@
             All details needed to serialize into a real item set in the game
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.RecommendedDto.Title">
+        <member name="P:TheBraverest.Models.API.RecommendedDto.title">
             <summary>
             The name of the item set as you would see it in the drop down.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.RecommendedDto.Type">
+        <member name="P:TheBraverest.Models.API.RecommendedDto.type">
             <summary>
             Can be custom or global. 
             This field is only used for grouping and sorting item sets. Custom item sets are ordered above global item sets. 
@@ -602,27 +602,27 @@
             To make an item set available for every champion, the JSON file must be placed an item set in the global folder.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.RecommendedDto.Map">
+        <member name="P:TheBraverest.Models.API.RecommendedDto.map">
             <summary>
             The map this item set will appear on. Can be any, Summoner's Rift SR, Howling Abyss HA, Twisted Treeline TT, or Crystal Scar CS.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.RecommendedDto.Mode">
+        <member name="P:TheBraverest.Models.API.RecommendedDto.mode">
             <summary>
             The mode this item set will appear on. Can be any, CLASSIC, ARAM, or Dominion ODIN.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.RecommendedDto.Priority">
+        <member name="P:TheBraverest.Models.API.RecommendedDto.priority">
             <summary>
             Selectively sort this item set above other item sets. Overrides sortrank, but not type. Defaults to false.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.RecommendedDto.SortRank">
+        <member name="P:TheBraverest.Models.API.RecommendedDto.sortrank">
             <summary>
             The order in which this item set will be sorted within a specific type. Item sets are sorted in descending order.
             </summary>
         </member>
-        <member name="P:TheBraverest.Models.API.RecommendedDto.Blocks">
+        <member name="P:TheBraverest.Models.API.RecommendedDto.blocks">
             <summary>
             The sections within an item set.
             </summary>
