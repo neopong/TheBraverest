@@ -360,6 +360,7 @@
     <Content Include="Images\team1.jpg" />
     <Content Include="Images\team2.jpg" />
     <Content Include="Images\team3.jpg" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\html5shiv.js" />
