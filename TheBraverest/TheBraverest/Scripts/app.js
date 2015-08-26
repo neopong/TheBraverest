@@ -48,9 +48,9 @@
             }
             
             //Insert masteries into the template
-            $('#label-master-offense').text(response.MasterySummary.Offense);
-            $('#label-master-defense').text(response.MasterySummary.Defense);
-            $('#label-master-utility').text(response.MasterySummary.Utility);
+            $('#label-mastery-offense').text("" + response.MasterySummary.Offense);
+            $('#label-mastery-defense').text("" + response.MasterySummary.Defense);
+            $('#label-mastery-utility').text("" + response.MasterySummary.Utility);
 
 
         });

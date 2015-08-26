@@ -104,3 +104,6 @@ body {
   right: -1.6em;
 }
 
+.modal-dialog{
+    width:800px;
+}
