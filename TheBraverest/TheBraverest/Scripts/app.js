@@ -31,7 +31,11 @@
             //Insert items into template
             for(var i = 0; i < response.Items.length; i++){
                 var item = response.Items[i];
-                $('#list-items').append(
+                var id = '#list-items-1';
+                if (i >= (response.Items.length / 2)) {
+                    var id = '#list-items-2';
+                }
+                $(id).append(
                     '<li>' +
                     '   <img src="'+ item.ImageUrl +'" width="' + thumbnailWidth + '" height="' + thumbnailHeight + '" />' +
                     '   <strong>' + item.Name + '</strong>' +

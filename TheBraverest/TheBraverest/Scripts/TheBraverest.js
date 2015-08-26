@@ -1,6 +1,6 @@
 ﻿var TheBraverest = TheBraverest || {}
 
-const API_PREFIX = 'api/';
+const API_PREFIX = '/api/';
 
 function apiPath(controller, actionName) {
     return API_PREFIX + 
