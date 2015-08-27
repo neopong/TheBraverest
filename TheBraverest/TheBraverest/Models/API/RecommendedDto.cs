@@ -122,8 +122,8 @@ namespace TheBraverest.Models.API
                     {
                         BlockDto newBlock = new BlockDto();
 
-                        newBlock.type = "Cowardice is a true virtue of a summoner that chooses " + summonerSpell.Value +
-                                        " when they're not supposed to. BOO!";
+                        newBlock.type = "A coward is one that chooses " + summonerSpell.Value +
+                                        " when they're not supposed to. BOO I say... BOOOO!";
 
                         newBlock.recMath = true;
                         newBlock.minSummonerLevel = -1;
