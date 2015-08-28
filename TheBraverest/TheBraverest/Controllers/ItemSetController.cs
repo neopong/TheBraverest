@@ -79,8 +79,44 @@ namespace TheBraverest.Controllers
                         JavaScriptSerializer jssZip = new JavaScriptSerializer();
 
                         string zipContent = jssZip.Serialize(recommendedDto);
-                        string batContent = string.Format(
-                            "move BRAVEREST_{0}_{1}_{2}.json \"C:\\Riot Games\\League of Legends\\Config\\Champions\\{0}\\Recommended\"",
+
+                        string moveBatContent = string.Format(
+                            "echo off\n" +
+                            "cls\n" +
+                            "if not exist \"C:\\Riot Games\\League of Legends\\Config\\Champions\" goto NoBaseDirectory\n" +
+                            "if exist \"C:\\Riot Games\\League of Legends\\Config\\Champions\\{0}\\Recommended\" goto MoveFile\n" +
+                            "md \"C:\\Riot Games\\League of Legends\\Config\\Champions\\{0}\\Recommended\"\n" +
+                            ":MoveFile\n" +
+                            "move BRAVEREST_{0}_{1}_{2}.json \"C:\\Riot Games\\League of Legends\\Config\\Champions\\{0}\\Recommended\"\n" +
+                            "echo Item set file successfully copied. You may now play your Braverest game evar!!1\n" +
+                            "goto Done\n" +
+                            ":NoBaseDirectory\n" +
+                            "echo Could not find the default League of Legends directory.\n" +
+                            "echo This means you have installed League of Legends into a directory that is not the standard location.\n" +
+                            "echo Because of this you must first find the directory you installed League of Legends into.\n" +
+                            "echo After that you must copy the BRAVEREST_{0}_{1}_{2}.json file directly into the relative \\League of Legends\\Config\\Champions\\{0}\\Recommended directory.\n" +
+                            ":Done\n" +
+                            "pause\n",
+                            recommendedDto.ChampionKey,
+                            recommendedDto.Version,
+                            recommendedDto.Seed);
+
+                        string deleteBatContent = string.Format(
+                            "echo off\n" +
+                            "cls\n" +
+                            "if not exist \"C:\\Riot Games\\League of Legends\\Config\\Champions\\{0}\\Recommended\\BRAVEREST_{0}_{1}_{2}.json\" goto NoFile\n" +
+                            "del \"C:\\Riot Games\\League of Legends\\Config\\Champions\\{0}\\Recommended\\BRAVEREST_{0}_{1}_{2}.json\"\n" +
+                            "echo Item set successfully deleted.  When you're feeling Braverest get another pro build at www.TheBraverest.com\n" +
+                            "goto Done\n" + 
+                            ":NoFile\n" +
+                            "echo Could not find the Item Set to delete.\n" +
+                            "echo This could mean one of two things\n" +
+                            "echo 1) You've already deleted the item set and are not the Braverest person you once were\n" +
+                            "echo 2) You have installed League of Legends into a directory that is not the standard location.\n" +
+                            "echo If #2 is the answer, you must first find the directory you installed League of Legends into.\n" +
+                            "echo After that you must delete the BRAVEREST_{0}_{1}_{2}.json file in the relative \\League of Legends\\Config\\Champions\\{0}\\Recommended directory.\n" +
+                            ":Done\n" +
+                            "pause\n",
                             recommendedDto.ChampionKey,
                             recommendedDto.Version,
                             recommendedDto.Seed);
@@ -105,7 +141,8 @@ namespace TheBraverest.Controllers
 
                             DirectoryInfo diWrite = Directory.CreateDirectory(tempFileDirectory + filePrefix);
                             File.WriteAllText(string.Format("{0}\\{1}.json", diWrite.FullName, filePrefix), zipContent);
-                            File.WriteAllText(string.Format("{0}\\CopyItemSet.bat", diWrite.FullName), batContent);
+                            File.WriteAllText(string.Format("{0}\\CopyItemSet.bat", diWrite.FullName), moveBatContent);
+                            File.WriteAllText(string.Format("{0}\\DeleteItemSet.bat", diWrite.FullName), deleteBatContent);
                             ZipFile.CreateFromDirectory(tempFileDirectory + filePrefix, zipFileName);
                             diWrite.Delete(true);
                         }
