@@ -1,7 +1,14 @@
 ﻿
 (function (window, $, TheBraverest) {
     var spinnerHtml = '<div class="throbber-loader">Loading…</div>';
-    var responseHtml = $('#response-modal .modal-body').html().toString();
+    //var responseHtml = $('#response-modal .modal-body').html().toString();
+
+    //Store the template
+    var responseHtml = $('#template').html().toString();
+
+    //Hide the template
+    $('#template').html('');
+
     var thumbnailWidth = 64;
     var thumbnailHeight = 64;
 
@@ -18,11 +25,12 @@
 
     $('#submit-build-request').click(function (e) {
         var template = responseHtml;
-        $('#response-modal .modal-body').html(spinnerHtml);
+        $('#template').html(spinnerHtml);
+
         $.when(submitBuildRequest())
         .done(function (response) {
             //Set the template into the modal
-            $('#response-modal .modal-body').html(template);
+            $('#template').html(template);
 
             //Insert champion data into template
             $('#label-champion-name').text(response.Champion.Name);

@@ -192,6 +192,7 @@
     <Compile Include="Classes\RESTResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BraveChampionController.cs" />
+    <Compile Include="Controllers\BuildController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemSetController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -422,6 +423,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Build\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

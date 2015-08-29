@@ -28,7 +28,7 @@
     <div class="container">
         <div class="box first">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- TheBraverest -->
                     <ins class="adsbygoogle"
@@ -53,27 +53,52 @@
                         to be playing with someone like you!
                     </p>
                 </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Get your Braverest Build Now!</h3>
-                            <p>Click the button below to get started</p>
-                            <button type="button" id="submit-build-request" data-backdrop="static" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#response-modal">Create My Build</button>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Want to get a build from before?</h3>
-                            <p>Just enter the build code below</p>
-                            <input type="text" class="form-control" placeholder="Build Code" id="input-build-code" />
-                        </div>
-                    </div>
-                </div>
             </div><!--/.row-->
             <div class="row">
                 <div class="col-md-12">
-
+                    <h3>Get your Braverest Build Now!</h3>
+                    <p>Click the button below to get started</p>
+                    <button type="button" id="submit-build-request" class="btn btn-primary btn-lg">Create My Build</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="template">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Your Champion Is!</h4>
+                                <img id="image-champion" width="64" height="64" />
+                                <h3 id="label-champion-name"></h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4>Your Items Are!</h4>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled" id="list-items-1">
+                                    <!-- Add list items here -->
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled" id="list-items-2">
+                                    <!-- Add list items here -->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Your Summoner Spells Are!</h3>
+                                <ul class="list-unstyled list-inline" id="list-summoner-spells"></ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Your Masteries Must Be</h4>
+                                <p><strong>Offense: </strong><span id="label-mastery-offense"></span></p>
+                                <p><strong>Defense: </strong><span id="label-mastery-defense"></span></p>
+                                <p><strong>Utility: </strong><span id="label-mastery-utility"></span></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div><!--/.box-->
@@ -86,34 +111,10 @@
         <div class="box last">
             <div class="row">
                 <div class="col-sm-6">
-                    <h1>Contact Form</h1>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-                    <div class="status alert alert-success" style="display: none"></div>
-                    <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php" role="form">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" required="required" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" required="required" placeholder="Email address">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Message"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <button  type="submit" class="btn btn-danger btn-lg">Send Message</button>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    <h1>Special Thanks</h1>
+                    <ul class="list-unstyled">
+                        <li><a href="http://www.ultimate-bravery.com/">Ultimate-Bravery.com</a></li>
+                    </ul>
                 </div><!--/.col-sm-6-->
                 <div class="col-sm-6">
                     <h1>Our Partners</h1>
@@ -126,62 +127,6 @@
         </div><!--/.box-->
     </div><!--/.container-->
 </section><!--/#contact-->
-
-<!-- Modal -->
-<div id="response-modal" class="modal fade" role="dialog" >
-    <div class="modal-dialog" style="z-index:999;">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">The Braverest Build!</h3>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>Your Champion Is!</h4>
-                        <img id="image-champion" width="64" height="64" />
-                        <h3 id="label-champion-name"></h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <h4>Your Items Are!</h4>
-                    <div class="col-md-6">
-                        <ul class="list-unstyled" id="list-items-1">
-                            <!-- Add list items here -->
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="list-unstyled" id="list-items-2">
-                            <!-- Add list items here -->
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Your Summoner Spells Are!</h3>
-                        <ul class="list-unstyled list-inline" id="list-summoner-spells">
-
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>Your Masteries Must Be</h4>
-                        <p><strong>Offense: </strong><span id="label-mastery-offense"></span></p>
-                        <p><strong>Defense: </strong><span id="label-mastery-defense"></span></p>
-                        <p><strong>Utility: </strong><span id="label-mastery-utility"></span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 @section scripts{
     <script src="~/Scripts/TheBraverest.js"></script>
