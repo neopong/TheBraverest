@@ -14,10 +14,15 @@
     var summonerSpellWidth = 32;
     var summonerSpellHeight = 32;
 
-    function submitBuildRequest() {
+    function submitBuildRequest(version, seed) {
         var actionData = TheBraverest.actionGetBraveChampion;
+
+        var url = actionData.url;
+        if (version && seed) {
+            url = url + '/' + version + '/' + seed;
+        }
         return $.ajax({
-            url: actionData.url,
+            url: url,
             method: actionData.method,
             dataType: 'JSON',
             contentType: "application/json"
@@ -32,11 +37,11 @@
         $('#button-show-modal').click();
     }
 
-    $('#submit-build-request').click(function (e) {
+    function getAndDisplayBuild(version, seed) {
         var template = responseHtml;
         $('#template').html(spinnerHtml);
 
-        $.when(submitBuildRequest())
+        $.when(submitBuildRequest(version, seed))
         .done(function (response) {
             //Set the template into the modal
             $('#template').html(template);
@@ -52,7 +57,7 @@
             $('#image-skill').attr('title', response.Skill.Name);
 
             //Insert items into template
-            for(var i = 0; i < response.Items.length; i++){
+            for (var i = 0; i < response.Items.length; i++) {
                 var item = response.Items[i];
                 var id = '#list-items-1';
                 $(id).append(
@@ -61,7 +66,7 @@
                         '" width="' + thumbnailWidth +
                         '" height="' + thumbnailHeight +
                         '" data-toggle="tooltip" title="' + item.Name + '\nCost: ' + item.Cost +
-                        '" class="list-item-close" '+ '/>' +
+                        '" class="list-item-close" ' + '/>' +
                     '</li>');
             }
 
@@ -77,12 +82,12 @@
                         '" class="list-item-close" ' + '/>' +
                     '</li>');
             }
-            
+
             //Insert masteries into the template
             $('#label-mastery-offense').text("" + response.MasterySummary.Offense);
             $('#label-mastery-defense').text("" + response.MasterySummary.Defense);
             $('#label-mastery-utility').text("" + response.MasterySummary.Utility);
-            
+
             //Make sure the links have the correct href.
             $('#link-download-text').attr('href', TheBraverest.getLocationDownloadJsonFile(response.Version, response.Seed));
             $('#link-download-zip').attr('href', TheBraverest.getLocationDownloadZipFile(response.Version, response.Seed));
@@ -104,6 +109,10 @@
             });
 
         });
+    }
+
+    $('#submit-build-request').click(function (e) {
+        getAndDisplayBuild();
     });
 
     //button-show-modal
