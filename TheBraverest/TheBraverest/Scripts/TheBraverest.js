@@ -18,3 +18,22 @@ TheBraverest.actionGetBraveChampion = {
     method: 'GET'
 };
 
+//Location 
+TheBraverest.getLocationBuildIndex = function (version, seed) {
+
+    return '/Build?verion=' + version + '&seed=' + seed;
+}
+
+TheBraverest.getLocationDownloadJsonFile = function (version, seed) {
+    return braveBuildURITemplate(version, seed, 'file');
+};
+
+TheBraverest.getLocationDownloadZipFile = function (version, seed) {
+    return braveBuildURITemplate(version, seed, 'zip');
+};
+
+function braveBuildURITemplate(version, seed, format) {
+    return "http://www.thebraverest.com/api/ItemSet/" +
+    version + "/" + seed +
+        (format ? "?format=" + format + "" : "");
+}

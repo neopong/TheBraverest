@@ -1,6 +1,4 @@
-﻿*{
-    font-family: 'Lato', Arial;
-}
+﻿
 #body-wrapper{
     background-image: url("../Images/bg.jpg");
     background-size:   cover;                     
@@ -107,4 +105,13 @@
 .modal-body{
     max-height: 600px;
     overflow-y: auto;
+}
+
+
+.display-inline{
+    display:inline;
+}
+
+.display-block {
+    display:block;
 }
