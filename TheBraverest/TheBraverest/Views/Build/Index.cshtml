@@ -1,0 +1,84 @@
+﻿@model TheBraverest.Models.BraveChampion
+@{
+    ViewBag.Title = "Index";
+    var thumbnailWidth = 64;
+    var thumbnailHeight = 64;
+}
+
+<div class="container">
+    <div class="box first">
+        <div class="row">
+            <div class="col-md-12">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- TheBraverest -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-2001188018575506"
+                     data-ad-slot="5065873877"
+                     data-ad-format="auto"></ins>
+                <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div><!--/.row-->
+        <p id="break" style="margin-top:100px;"></p>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="template">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Champion</h3>
+                            <img src="@Model.Champion.ImageUrl" id="image-champion" width="82" height="82" class="display-inline" />
+                            <h3 id="label-champion-name" class="display-inline">@Model.Champion.Name</h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>First Maxed Skill</h3>
+                            <img src="@Model.Skill.ImageUrl" id="image-skill" width="64" height="64" class="display-inline" />
+                            <h3 id="label-skill-name" class="display-inline">@Model.Skill.Name</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Items</h3>
+                            <ul class="list-unstyled list-inline" id="list-items-1">
+                                @foreach (var item in Model.Items)
+                                {
+                                    <li><img  src="@item.ImageUrl" width="@thumbnailWidth" height="@thumbnailHeight" data-toggle="tooltip" title="@item.Name - Cost: @item.Cost"/></li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Summoner Spells</h3>
+                            <ul class="list-unstyled list-inline" id="list-summoner-spells">
+                                @foreach (var item in Model.SummonerSpells)
+                                {
+                                    <li><img src="@item.ImageUrl" width="@thumbnailWidth" height="@thumbnailHeight" data-toggle="tooltip" title="@item.Name" /></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                      
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Masteries</h3>
+                            <p><strong>Offense: </strong><span id="label-mastery-offense">@Model.MasterySummary.Offense</span></p>
+                            <p><strong>Defense: </strong><span id="label-mastery-defense">@Model.MasterySummary.Defense</span></p>
+                            <p><strong>Utility: </strong><span id="label-mastery-utility">@Model.MasterySummary.Utility</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Download Your BraveRest Build!</h3>
+                            <a class="btn btn-primary" id="link-download-text" href="#">Download Base Build</a>
+                            <a class="btn btn-primary" id="link-download-zip" href="#">Download Zip With Installer</a>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>&nbsp;</h3>
+                            <a class="btn btn-warning" href="/Home/Index">Return To Main Page</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.box-->
+</div><!--/.container-->
