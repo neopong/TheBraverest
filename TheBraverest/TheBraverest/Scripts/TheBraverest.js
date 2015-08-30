@@ -8,7 +8,6 @@ function apiPath(controller, actionName) {
         (actionName ? actionName : '');
 }
 
-
 //API Controllers
 TheBraverest.BraveChampionController = 'BraveChampion';
 
