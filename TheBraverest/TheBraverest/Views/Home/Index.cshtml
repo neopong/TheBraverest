@@ -60,19 +60,7 @@
                     <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
-                    <h3>How to use the Braverest Build System:</h3>
-                    <p class="lead">To use the Braverest Build System, click on the <strong>Create My Build</strong> button.
-                    </p>
-                    <p class="lead">
-                        Our <strong>Brave Build Generation System<sup>TM</sup></strong> will generate a build guide for you to use in game.
-                        Place the build in your {Riot Games Directory}\League of Legends\Config\Champions\{champion}\Recommended directory. 
-                        During the game when you open up the shop interface you should be prompted to
-                        buy your <i>super speshul</i> items hand crafted for a pro like yourself.
-                    </p>
-                    <p class="lead">
-                        Make sure to type <b>"I AM THE BRAVEREST"</b> in /all chat so everyone knows how lucky they are
-                        to be playing with someone like you!
-                    </p>
+                   
                 </div>
             </div><!--/.row-->
             <div class="row">
@@ -84,7 +72,6 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-
                     <div id="template">
                         <div class="row">
                             <div class="col-md-12">
@@ -95,61 +82,104 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <h3>The Champion Bestowed Upon You!</h3>
-                                <img id="image-champion" width="82" height="82" class="display-inline" />
-                                <h3 id="label-champion-name" class="display-inline"></h3>
-                            </div>
-                            <div class="col-md-6">
-                                <h3>Skill To Max First</h3>
-                                <img id="image-skill" width="64" height="64" class="display-inline" />
-                                <h3 id="label-skill-name" class="display-inline"></h3>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h3>You Shall Purchase These Items!</h3>
-                                <ul class="list-unstyled list-inline" id="list-items-1" >
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <h3>And Your Summoner Spells Will Be</h3>
-                                <ul class="list-unstyled list-inline" id="list-summoner-spells"></ul>
-                            </div>
-                        </div>
-                  
-                        <div class="row">
                             <div class="col-md-12">
-                                <h3>Finally, These Will Be Your Mastery Distribution</h3>
-                                <p><strong>Offense: </strong><span id="label-mastery-offense"></span></p>
-                                <p><strong>Defense: </strong><span id="label-mastery-defense"></span></p>
-                                <p><strong>Utility: </strong><span id="label-mastery-utility"></span></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Download Your BraveRest Build!</h3>
-                                <a class="btn btn-primary" id="link-download-text" href="#">Download Base Build</a>
-                                <a class="btn btn-primary" id="link-download-zip" href="#">Download Zip With Installer</a>
+                                <img id="image-champion" width="128" height="128" class="display-inline" />
+                                <h2 id="label-champion-name" class="display-inline"></h2>
+
                             </div>
                         </div>
                         <br />
                         <div class="row">
+                            <div class="col-md-4">
+                                <div style="width:96px; display:block">
+                                    <img id="image-skill" width="64" height="64" class="display-inline" />
+                                    <ul class="list-unstyled display-inline" style="float:right" id="list-summoner-spells"></ul>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <ul class="list-unstyled list-inline list-group" id="list-items-1"></ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Offense: </strong><b id="label-mastery-offense" style="color:red"></b>  &nbsp;
+                                <strong>Defense: </strong><b id="label-mastery-defense" style="color:blue"></b> &nbsp;
+                                <strong>Utility: </strong><b id="label-mastery-utility" style="color:green"></b>&nbsp;
+                            </div>
+                        </div>
+       
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Download Your Braverest Build!</h3>
+                                <a class="btn btn-primary" id="link-download-file" href="#">Download Build File</a>
+                                <a class="btn btn-primary" id="link-download-zip" href="#">Download Zip (OPTIONAL)</a>
+                                <a class="btn btn-primary" id="link-download-text" href="#">Get The Build Code</a>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <h3>Share your build!</h3>
-                                <input class="form-control" type="text" value="" id="text-share-build" />
+                                <div class="input-group">
+                                    <input class="form-control" type="text" value="" id="text-share-build" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default">Copy</button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @*<h3>How to use the Braverest Build System:</h3>
+                    <p class="lead">
+                        To use the Braverest Build System, click on the <strong>Create My Build</strong> button.
+                    </p>
+                    <p class="lead">
+                        Our <strong>Brave Build Generation System<sup>TM</sup></strong> will generate a build guide for you to use in game.
+                        Place the build in your {Riot Games Directory}\League of Legends\Config\Champions\{champion}\Recommended directory.
+                        During the game when you open up the shop interface you should be prompted to
+                        buy your <i>super speshul</i> items hand crafted for a pro like yourself.
+                    </p>*@
+                        <p class="lead">
+                            The Most Important Rule: Make sure to type <b>"I AM THE BRAVEREST"</b> in /all chat so everyone knows how lucky they are
+                            to be playing with someone like you!
+                        </p>
+                        <a href="#">See all of the rules here!</a>
+                    </div>
+                </div>
         </div><!--/.box-->
     </div><!--/.container-->
 </section><!--/#services-->
+<!-- Modal -->
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" id="button-show-modal" data-toggle="modal" data-target="#myModal" data-backdrop="static"></button>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p class="lead" id="modal-description"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts{
+    <script>
+        var pageData = {
+
+        };
+    </script>
     <script src="~/Scripts/TheBraverest.js"></script>
     <script src="~/Scripts/app.js"></script>
 }

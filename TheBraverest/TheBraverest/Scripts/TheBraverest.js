@@ -20,7 +20,7 @@ TheBraverest.actionGetBraveChampion = {
 //Location 
 TheBraverest.getLocationBuildIndex = function (version, seed) {
 
-    return 'http://TheBraverest.com/Build?version=' + version + '&seed=' + seed;
+    return 'http://' + window.location.host + '/Build?version=' + version + '&seed=' + seed;
 }
 
 TheBraverest.getLocationDownloadJsonFile = function (version, seed) {
@@ -31,8 +31,12 @@ TheBraverest.getLocationDownloadZipFile = function (version, seed) {
     return braveBuildURITemplate(version, seed, 'zip');
 };
 
+TheBraverest.getLocationDownloadPlainText = function (version, seed) {
+    return braveBuildURITemplate(version, seed, 'text');
+}
+
 function braveBuildURITemplate(version, seed, format) {
-    return "http://www.thebraverest.com/api/ItemSet/" +
+    return "http://" + window.location.host + "/api/ItemSet/" +
     version + "/" + seed +
         (format ? "?format=" + format + "" : "");
 }
