@@ -28,6 +28,10 @@
         $('#modal-description').text(text);
     }
 
+    function openModal() {
+        $('#button-show-modal').click();
+    }
+
     $('#submit-build-request').click(function (e) {
         var template = responseHtml;
         $('#template').html(spinnerHtml);
@@ -82,7 +86,23 @@
             //Make sure the links have the correct href.
             $('#link-download-text').attr('href', TheBraverest.getLocationDownloadJsonFile(response.Version, response.Seed));
             $('#link-download-zip').attr('href', TheBraverest.getLocationDownloadZipFile(response.Version, response.Seed));
+            $('#link-download-plain').attr('href', TheBraverest.getLocationDownloadPlainText(response.Version, response.Seed));
             $('#text-share-build').val(TheBraverest.getLocationBuildIndex(response.Version, response.Seed));
+
+            $('#link-download-text').on("click", function () {
+                changeExplanationText('test1');
+                openModal();
+
+            });
+            $('#link-download-zip').on("click", function () {
+                changeExplanationText('test2');
+                openModal();
+            });
+            $('#link-download-file').on("click", function () {
+                changeExplanationText('test3');
+                openModal();
+            });
+
         });
     });
 
@@ -92,14 +112,5 @@
     link-download-zip" 
     link-download-text"
     */
-    $('#link-download-text').click(function () {
-
-    });
-    $('#link-download-zip').click(function () {
-
-    });
-    $('#link-download-file').click(function () {
-
-    });
 
 })(window, jQuery, TheBraverest);
