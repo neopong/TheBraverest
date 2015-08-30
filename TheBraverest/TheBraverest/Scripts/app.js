@@ -22,7 +22,6 @@
         });
     }
 
-
     $('#submit-build-request').click(function (e) {
         var template = responseHtml;
         $('#template').html(spinnerHtml);
@@ -32,28 +31,21 @@
             //Set the template into the modal
             $('#template').html(template);
 
-            /*
-            
-                Id: 1
-    ImageUrl: "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/spell/LucianW.png"
-    Letter: "W"
-    Name: "Ardent Blaze"
-            */
-
             //Insert champion data into template
             $('#label-champion-name').text(response.Champion.Name);
             $('#image-champion').attr('src', response.Champion.ImageUrl);
+
+            //Insert Skill data into the template;
+            $('#label-skill-name').text(response.Skill.Name);
+            $('#image-skill').attr('src', response.Skill.ImageUrl);
 
             //Insert items into template
             for(var i = 0; i < response.Items.length; i++){
                 var item = response.Items[i];
                 var id = '#list-items-1';
-                //if (i >= (response.Items.length / 2)) {
-                //    var id = '#list-items-2';
-                //}
                 $(id).append(
                     '<li>' +
-                    '   <img src="' + item.ImageUrl + '" width="' + thumbnailWidth + '" height="' + thumbnailHeight + '" data-toggle="tooltip" title="' + item.Name + '" />' +
+                    '   <img src="' + item.ImageUrl + '" width="' + thumbnailWidth + '" height="' + thumbnailHeight + '" data-toggle="tooltip" title="' + item.Name + '\nCost: ' + item.Cost + '" />' +
                     '</li>');
             }
             //Insert summoner spells into template
@@ -62,7 +54,6 @@
                 $('#list-summoner-spells').append(
                     '<li>' +
                     '   <img src="' + item.ImageUrl + '" width="' + thumbnailWidth + '" height="' + thumbnailHeight + '"  data-toggle="tooltip" title="' + item.Name + '" />' +
-                    //'   <strong>' + item.Name + '</strong>' +
                     '</li>');
             }
             

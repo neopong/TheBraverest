@@ -1,7 +1,28 @@
 ﻿@{
     ViewBag.Title = "Halp, I need a build!";
 }
-
+<header id="header" role="banner">
+    <div class="container">
+        <div id="navbar" class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/Index">The Braverest!</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#main-slider"><i class="icon-home"></i></a></li>
+                    <li><a href="#services">Become The Braverest</a></li>
+                    <li><a href="#contact">Partners</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header><!--/#header-->
 <section id="main-slider" class="carousel">
     <div class="carousel-inner">
         <div class="item active">
@@ -74,28 +95,32 @@
                             </div>
                         </div>
                         <div class="row">
-                            <h3>The Champion Bestowed Upon You!</h3>
                             <div class="col-md-6">
+                                <h3>The Champion Bestowed Upon You!</h3>
                                 <img id="image-champion" width="82" height="82" class="display-inline" />
                                 <h3 id="label-champion-name" class="display-inline"></h3>
                             </div>
+                            <div class="col-md-6">
+                                <h3>Skill To Max First</h3>
+                                <img id="image-skill" width="64" height="64" class="display-inline" />
+                                <h3 id="label-skill-name" class="display-inline"></h3>
+                            </div>
                         </div>
                         <div class="row">
-                            <h3>You Shall Purchase These Items!</h3>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <h3>You Shall Purchase These Items!</h3>
                                 <ul class="list-unstyled list-inline" id="list-items-1" >
                                 </ul>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Your Powers as A Summoner Shall Be!</h3>
+                            <div class="col-md-6">
+                                <h3>And Your Summoner Spells Will Be</h3>
                                 <ul class="list-unstyled list-inline" id="list-summoner-spells"></ul>
                             </div>
                         </div>
+                  
                         <div class="row">
                             <div class="col-md-12">
-                                <h3>Your Masteries Must Be!</h3>
+                                <h3>Finally, These Will Be Your Mastery Distribution</h3>
                                 <p><strong>Offense: </strong><span id="label-mastery-offense"></span></p>
                                 <p><strong>Defense: </strong><span id="label-mastery-defense"></span></p>
                                 <p><strong>Utility: </strong><span id="label-mastery-utility"></span></p>
@@ -106,7 +131,11 @@
                                 <h3>Download Your BraveRest Build!</h3>
                                 <a class="btn btn-primary" id="link-download-text" href="#">Download Base Build</a>
                                 <a class="btn btn-primary" id="link-download-zip" href="#">Download Zip With Installer</a>
-                                <br />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-6">
                                 <h3>Share your build!</h3>
                                 <input class="form-control" type="text" value="" id="text-share-build" />
                             </div>
@@ -119,27 +148,6 @@
 </section><!--/#services-->
 
 
-<section id="contact">
-    <div class="container">
-        <div class="box last">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h1>Special Thanks</h1>
-                    <ul class="list-unstyled">
-                        <li><a href="http://www.ultimate-bravery.com/">Ultimate-Bravery.com</a></li>
-                    </ul>
-                </div><!--/.col-sm-6-->
-                <div class="col-sm-6">
-                    <h1>Our Partners</h1>
-                    <ul class="list-unstyled">
-                        <li><a href="http://killteemo.com">Kill Teemo</a></li>
-                        <li><a href="http://Nurf.us">Nurf Us</a></li>
-                    </ul>
-                </div><!--/.col-sm-6-->
-            </div><!--/.row-->
-        </div><!--/.box-->
-    </div><!--/.container-->
-</section><!--/#contact-->
 
 @section scripts{
     <script src="~/Scripts/TheBraverest.js"></script>

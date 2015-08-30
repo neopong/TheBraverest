@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace TheBraverest.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BuildController : AsyncController
     {
         /// <summary>

@@ -21,7 +21,7 @@ TheBraverest.actionGetBraveChampion = {
 //Location 
 TheBraverest.getLocationBuildIndex = function (version, seed) {
 
-    return '/Build?verion=' + version + '&seed=' + seed;
+    return 'http://TheBraverest.com/Build?verion=' + version + '&seed=' + seed;
 }
 
 TheBraverest.getLocationDownloadJsonFile = function (version, seed) {

@@ -495,6 +495,11 @@
             </param>
             <returns>A BraveChampion to build an item set or visual display for</returns>
         </member>
+        <member name="T:TheBraverest.Controllers.BuildController">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:TheBraverest.Controllers.BuildController.Index(System.String,System.Nullable{System.Int32})">
             <summary>
             Rebuild your build given a version and a seed.
