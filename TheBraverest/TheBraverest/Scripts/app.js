@@ -30,7 +30,7 @@
     }
 
     function changeExplanationText(text) {
-        $('#modal-description').text(text);
+        $('#modal-description').html(text);
     }
 
     function openModal() {
@@ -46,26 +46,30 @@
             //Set the template into the modal
             $('#template').html(template);
 
+            $('#build-details').css('visibility', 'visible');
+
             //Insert champion data into template
             $('#label-champion-name').text(response.Champion.Name);
-            $('#image-champion').attr('src', response.Champion.ImageUrl);
+            $('#image-champion').css('background', 'url(' + response.Champion.ImageUrl + ') no-repeat');
 
             //Insert Skill data into the template;
-            $('#label-skill-name').text(response.Skill.Name);
+            $("#skill-letter").text(response.Skill.Letter);
+            $("#skill-letter").attr('title', 'Skill letter: ' + response.Skill.Letter);
             $('#image-skill').attr('src', response.Skill.ImageUrl);
-            $('#image-skill').data('toggle', 'tooltip');
-            $('#image-skill').attr('title', response.Skill.Name);
+            $('#image-skill').attr('title', 'Max ' + response.Skill.Name + ' first (' + response.Skill.Letter + ')');
 
             //Insert items into template
             for (var i = 0; i < response.Items.length; i++) {
                 var item = response.Items[i];
                 var id = '#list-items-1';
                 $(id).append(
-                    '<li>' +
+                    '<li style="padding: 0px;">' +
                     '   <img src="' + item.ImageUrl +
                         '" width="' + thumbnailWidth +
                         '" height="' + thumbnailHeight +
-                        '" data-toggle="tooltip" title="' + item.Name + '\nCost: ' + item.Cost +
+                        '" data-toggle="tooltip' +
+                        '" data_placement = "top" ' +
+                        'title="' + item.Name + '\nCost: ' + item.Cost +
                         '" class="list-item-close" ' + '/>' +
                     '</li>');
             }
@@ -78,7 +82,9 @@
                     '   <img src="' + item.ImageUrl +
                         '" width="' + summonerSpellWidth +
                         '" height="' + summonerSpellHeight +
-                        '" data-toggle="tooltip" title="' + item.Name +
+                        '" data-toggle="tooltip' +
+                        '" data-placement="right' +
+                        '" title="' + item.Name +
                         '" class="list-item-close" ' + '/>' +
                     '</li>');
             }
@@ -95,19 +101,40 @@
             $('#text-share-build').val(TheBraverest.getLocationBuildIndex(response.Version, response.Seed));
 
             $('#link-download-text').on("click", function () {
-                changeExplanationText('test1');
+                changeExplanationText('Copy the file that just downloaded into the following directory:  {Riot Games Directory - default C:\\Riot Games}\\League of Legends\\Config\\Champions\\'
+                    +
+                    response.Key
+                    +
+                    '\\Recommended<br/><br/>'
+                    +
+                    'If you ever want to get rid of your super brave item set just delete the file you just copied.<br /><br />' +
+                    '<b>GO FORTH AND BE THE BRAVEREST!</b>');
                 openModal();
 
             });
             $('#link-download-zip').on("click", function () {
-                changeExplanationText('test2');
+                changeExplanationText('Please note this is a totally optional feature.  It will make things easier for you, however it will run a .bat file on your computer.<br/>' +
+                    '<b>If you don\'t trust us please don\'t choose this option!</b><br /><br />' +
+                    'If you are brave enough to continue, extract all of the files out of the zip file and remember where you put it.<br /><br />' +
+                    'Once that is done just run the CopyItemSet.bat file and you should be good to go.<br /><br />' +
+                    'If you ever want to get rid of your super brave item set just run the DeleteItemSet.bat file.<br /><br />' +
+                    '<b>GO FORTH AND BE THE BRAVEREST!</b>');
                 openModal();
             });
-            $('#link-download-file').on("click", function () {
-                changeExplanationText('test3');
+            $('#link-download-plain').on("click", function () {
+                changeExplanationText('Create a .json file and copy/paste the text that opened in a new window into it and save it. <br /><br />' +
+                    'Once you have done that copy the file into the following directory:  {Riot Games Directory - default C:\\Riot Games}\\League of Legends\\Config\\Champions\\'
+                    +
+                    response.Key
+                    +
+                    '\\Recommended<br/><br/>'
+                    +
+                    'If you ever want to get rid of your super brave item set just delete the file you created.<br /><br />' + 
+                    '<b>GO FORTH AND BE THE BRAVEREST!</b>');
                 openModal();
             });
 
+            $('[data-toggle="tooltip"]').tooltip();
         });
     }
 

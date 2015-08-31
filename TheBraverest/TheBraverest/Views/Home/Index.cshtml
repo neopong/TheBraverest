@@ -49,6 +49,84 @@
     <div class="container">
         <div class="box first">
             <div class="row">
+            </div><!--/.row-->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Get your Braverest Build Now!</h3>
+                    <button type="button" id="submit-build-request" class="btn btn-primary btn-lg">Create My Build</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="template">
+                        <div id="build-details" style="visibility: hidden;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="lead">
+                                        The Gods have granted you a build. Use it to
+                                        become the Braverest in the land by clicking one of the buttons below!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="image-champion" data-toggle="tooltip" data-placement="top" class="champion"></div>
+                                    <h2 id="label-champion-name" class="display-inline"></h2>
+                                    <div class="clear: both;"></div>
+                                    <div style="width: 96px; display: block; float: left; margin-top: 7px;">
+                                        <span id="skill-letter" data-toggle="tooltip" data-placement="left" class="badge" style="background-color: #9932cc"></span>
+                                        <br />
+                                        <img id="image-skill" data-toggle="tooltip" data-placement="left" width="64" height="64" class="display-inline" style="float: left" />
+                                        <ul class="list-unstyled display-inline" style="float: right; margin-bottom: 0px;" id="list-summoner-spells"></ul>
+                                        <span class="badge" id="label-mastery-offense" data-toggle="tooltip" data-placement="bottom" title="Offense" style="background-color: red; float: left;"></span>
+                                        <span class="badge" id="label-mastery-defense" data-toggle="tooltip" data-placement="bottom" title="Defense" style="background-color: blue; float: left;"></span>
+                                        <span class="badge" id="label-mastery-utility" data-toggle="tooltip" data-placement="bottom" title="Utility" style="background-color: green; float: left;"></span>
+                                    </div>
+                                    <div style="float: left; padding-left: 20px; margin-top: 28px;">
+                                        <ul class="list-unstyled list-inline list-group" id="list-items-1"></ul>
+                                    </div>
+
+                                    <div style="clear: both;"></div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="btn btn-primary" id="link-download-text" href="#">Download Build File</a>
+                                    <a class="btn btn-primary" id="link-download-zip" href="#">Download Zip (OPTIONAL)</a>
+                                    <a class="btn btn-primary" id="link-download-plain" target="_blank" href="#">Copy/Paste Manually</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3>Share your build!</h3>
+                                    <input class="form-control" type="text" value="" id="text-share-build" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h3>Rules</h3>
+                <div class="col-md-12">
+                    <p class="lead">
+                        The Most Important Rule: Make sure to type <b>"I AM THE BRAVEREST"</b> in /all chat so everyone knows how lucky they are
+                        to be playing with someone like you!
+                        <a href="/Rules">See all of the rules here!</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <h3>The Braverest API!</h3>
+                <div class="col-md-12">
+                    <p class="lead">
+                        Want to make something with Brave Champions?
+                        We have our own API. Check out the documentation and make people the Braverest they can be <a href="/Help">HERE!</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- TheBraverest -->
@@ -58,87 +136,11 @@
                          data-ad-slot="5065873877"
                          data-ad-format="auto"></ins>
                     <script>
-(adsbygoogle = window.adsbygoogle || []).push({});
+                        (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
-                   
-                </div>
-            </div><!--/.row-->
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Get your Braverest Build Now!</h3>
-                    <p>Click the button below to get started</p>
-                    <button type="button" id="submit-build-request" class="btn btn-primary btn-lg">Create My Build</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="template">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="lead">
-                                    Behold! The Gods have granted you a build. Use it! and
-                                    become the Braverest in all the land!!
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <img id="image-champion" width="128" height="128" class="display-inline" />
-                                <h2 id="label-champion-name" class="display-inline"></h2>
 
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div style="width:96px; display:block">
-                                    <img id="image-skill" width="64" height="64" class="display-inline" />
-                                    <ul class="list-unstyled display-inline" style="float:right" id="list-summoner-spells"></ul>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <ul class="list-unstyled list-inline list-group" id="list-items-1"></ul>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong>Offense: </strong><b id="label-mastery-offense" style="color:red"></b>  &nbsp;
-                                <strong>Defense: </strong><b id="label-mastery-defense" style="color:blue"></b> &nbsp;
-                                <strong>Utility: </strong><b id="label-mastery-utility" style="color:green"></b>&nbsp;
-                            </div>
-                        </div>
-       
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Download Your Braverest Build!</h3>
-                                <a class="btn btn-primary" id="link-download-text" href="#">Download Build File</a>
-                                <a class="btn btn-primary" id="link-download-zip" href="#">Download Zip (OPTIONAL)</a>
-                                <a class="btn btn-primary" id="link-download-plain" href="#">Get The Build Code</a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h3>Share your build!</h3>
-                                <div class="input-group">
-                                    <input class="form-control" type="text" value="" id="text-share-build" />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default">Copy</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="lead">
-                            The Most Important Rule: Make sure to type <b>"I AM THE BRAVEREST"</b> in /all chat so everyone knows how lucky they are
-                            to be playing with someone like you!
-                        </p>
-                        <a href="#">See all of the rules here!</a>
-                    </div>
-                </div>
         </div><!--/.box-->
     </div><!--/.container-->
 </section><!--/#services-->
@@ -159,7 +161,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">Instructions</h4>
             </div>
             <div class="modal-body">
                 <p class="lead" id="modal-description"></p>

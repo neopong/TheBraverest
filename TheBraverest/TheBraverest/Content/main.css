@@ -159,13 +159,13 @@ a:focus {
   box-shadow: none;
 }
 .box {
-  padding: 50px 30px;
+  padding: 10px 30px;
   background: #fff;
   /*border-bottom: 1px solid #e9e9e9;*/
   position: relative;
 }
 .box.first {
-  margin-top: -40px;
+  margin-top: -180px;
   border-radius: 5px 5px 0 0;
 }
 .box.last {
@@ -361,7 +361,7 @@ a:focus {
   padding-bottom: 0;
 }
 #services .row > div {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .center {
   text-align: center;

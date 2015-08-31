@@ -10,7 +10,12 @@ namespace TheBraverest.Controllers
     {
         public ActionResult Index()
         {
+            return View();
+        }
 
+        [Route("Rules")]
+        public ActionResult Rules()
+        {
             return View();
         }
 

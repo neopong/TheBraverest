@@ -55,7 +55,7 @@ namespace TheBraverest.Controllers
                 switch (format.ToLower())
                 {
                     case "text":
-                        return Ok(recommendedDto);
+                        return Content(HttpStatusCode.OK, recommendedDto, Configuration.Formatters.JsonFormatter);
                         break;
                     case "file":
                         JavaScriptSerializer jss = new JavaScriptSerializer();

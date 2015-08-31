@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Live and die by the code...";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    ol li {
+        font-size: 24pt;
+    }
+
+    ol li span {
+        font-size: 14pt;
+    }
+</style>
+<h2>Rules</h2>
+<header id="header" role="banner">
+    <div class="container">
+        <div id="navbar" class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/Index">The Braverest!</a>
+            </div>
+        </div>
+    </div>
+</header><!--/#header-->
+<section id="main-slider" class="carousel">
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-content">
+                    <h1>Become the Braverest Today!</h1>
+                    <p class="lead">Show your opponents they are no match for you. Take no prisoners!</p>
+                </div>
+            </div>
+        </div><!--/.item-->
+        <div class="item">
+            <div class="container">
+                <div class="carousel-content">
+                    <h1>Who Needs a Proper Build?</h1>
+                    <p class="lead">I'm So Meta Even This Acronym.</p>
+                </div>
+            </div>
+        </div><!--/.item-->
+    </div><!--/.carousel-inner-->
+    <a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
+    <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>
+</section><!--/#main-slider-->
+<section id="rules">
+    <div class="container">
+        <div class="box first">
+            <ol>
+                <li><span>Select the correct champion! No one cares if you don't like the champion, Yorick is a solid pick for the Braverest!</span></li>
+                <li><span>Max the selected skill first above all others. You should only ever need this skill to win when you're the Braverest!</span></li>
+                <li><span>Buy the items in order starting with boots. You must buy the fully completed item before moving on to the next item. Don't want an Archangel's staff on Garen? Too bad!</span></li>
+                <li><span>Your mastery point distribution will always be the most efficient way to prove you're the Braverest. Make sure you don't stray...</span></li>
+                <li><span>Never buy a ward, EVER! Wards are for fools who are afraid of what might come their way!</span></li>
+                <li><span>If anyone ever questions your Braverest status give them the link that appears below your build and flex.</span></li>
+            </ol>
+
+            <p class="lead">
+                Do all this and win and you will be... <b>THE BRAVEREST!</b>
+            </p>
+            <a href="/" class="btn btn-primary">Go get a build and become the Braverest!</a>
+        </div>
+    </div>
+</section>

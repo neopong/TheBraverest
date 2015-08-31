@@ -117,6 +117,19 @@
 }
 
 .list-item-close{
+    border-width: 2px;
+    border-style: solid;
+    border-color: gold;
     margin-left:0;
     margin-right:0;
+}
+
+.champion {
+    width: 118px; 
+    height: 118px; 
+    float: left; 
+    border-radius: 50% !important; 
+    border-style: solid; 
+    border-color: #4d0c0c;
+    border-width: 2px;
 }

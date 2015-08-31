@@ -254,31 +254,6 @@
             Initializes a new instance of the <see cref="T:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator"/> class.
             </summary>
         </member>
-        <member name="P:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
-            <summary>
-            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
-            </summary>
-        </member>
-        <member name="P:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
-            <summary>
-            Gets the objects that are used directly as samples for certain actions.
-            </summary>
-        </member>
-        <member name="P:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
-            <summary>
-            Gets the objects that are serialized as samples by the supported formatters.
-            </summary>
-        </member>
-        <member name="P:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
-            <summary>
-            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
-            stopping when the factory successfully returns a non-<see langref="null"/> object.
-            </summary>
-            <remarks>
-            Collection includes just <see cref="M:TheBraverest.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
-            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
-            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
-        </member>
         <member name="M:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
             <summary>
             Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
@@ -351,6 +326,31 @@
             <param name="type">The type.</param>
             <param name="mediaType">Type of the media.</param>
             <returns></returns>
+        </member>
+        <member name="P:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:TheBraverest.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
         </member>
         <member name="T:TheBraverest.Areas.HelpPage.HelpPageSampleKey">
             <summary>
@@ -726,6 +726,26 @@
             Standard information for an item that can be purchased
             </summary>
         </member>
+        <member name="T:TheBraverest.Models.SelectedValue">
+            <summary>
+            Standard information for data
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.SelectedValue.Id">
+            <summary>
+            The Id of the data element
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.SelectedValue.Name">
+            <summary>
+            The Name of the data element
+            </summary>
+        </member>
+        <member name="P:TheBraverest.Models.SelectedValue.ImageUrl">
+            <summary>
+            The URL of the image for the visual representation of the data element
+            </summary>
+        </member>
         <member name="P:TheBraverest.Models.SelectedItem.Cost">
             <summary>
             The total cost of the item
@@ -760,26 +780,6 @@
         <member name="P:TheBraverest.Models.SelectedSummonerSpell.Key">
             <summary>
             The key for the summoner spell
-            </summary>
-        </member>
-        <member name="T:TheBraverest.Models.SelectedValue">
-            <summary>
-            Standard information for data
-            </summary>
-        </member>
-        <member name="P:TheBraverest.Models.SelectedValue.Id">
-            <summary>
-            The Id of the data element
-            </summary>
-        </member>
-        <member name="P:TheBraverest.Models.SelectedValue.Name">
-            <summary>
-            The Name of the data element
-            </summary>
-        </member>
-        <member name="P:TheBraverest.Models.SelectedValue.ImageUrl">
-            <summary>
-            The URL of the image for the visual representation of the data element
             </summary>
         </member>
     </members>
