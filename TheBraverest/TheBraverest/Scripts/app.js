@@ -136,7 +136,7 @@
             });
 
             $('[data-toggle="tooltip"]').tooltip();
-            $('#submit-build-request').attr('disabled', '');
+            $('#submit-build-request').attr('disabled', false);
         });
     }
 
