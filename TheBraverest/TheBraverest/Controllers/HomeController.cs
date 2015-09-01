@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TheBraverest.Models;
 
 namespace TheBraverest.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        [Route("")]
+        [Route("Home/Index")]
+        [Route("Home/Index/{version}/{seed:int}")]
+        public ActionResult Index(String version, int? seed)
         {
-            return View();
+            return View(new HomeIndexViewModel() {
+                Version = version,
+                Seed = seed
+            });
+
         }
 
         [Route("Rules")]

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TheBraverest.Models.HomeIndexViewModel
+@{
     ViewBag.Title = "Halp, I need a build!";
 }
 <header id="header" role="banner">
@@ -177,7 +178,8 @@
 @section scripts{
     <script>
         var pageData = {
-
+            version: '@Model.Version',
+            seed: '@Model.Seed'
         };
     </script>
     <script src="~/Scripts/TheBraverest.js"></script>

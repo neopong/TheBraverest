@@ -258,6 +258,7 @@
     <Compile Include="Models\API\Team.cs" />
     <Compile Include="Models\API\Timeline.cs" />
     <Compile Include="Models\BraveChampion.cs" />
+    <Compile Include="Models\HomeIndexViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MasterySummary.cs" />

@@ -38,6 +38,7 @@
     }
 
     function getAndDisplayBuild(version, seed) {
+        $('#submit-build-request').attr('disabled', 'disabled');
         var template = responseHtml;
         $('#template').html(spinnerHtml);
 
@@ -135,6 +136,7 @@
             });
 
             $('[data-toggle="tooltip"]').tooltip();
+            $('#submit-build-request').attr('disabled', '');
         });
     }
 
@@ -148,5 +150,9 @@
     link-download-zip" 
     link-download-text"
     */
+
+    if (window.pageData.version && window.pageData.seed) {
+        getAndDisplayBuild(window.pageData.version, window.pageData.seed);
+    }
 
 })(window, jQuery, TheBraverest);
